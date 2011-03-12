@@ -27,25 +27,25 @@ function chirp_action_post()
         if( !file_exists( $chirp_feedpath ) )    // First tweet? Make file!
         {
             $feedbody = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>
-    <rss version=\"2.0\">
-    
-    <channel>
-    <title>$chirp_htmlusername's chirps</title>
-    <description>This is an RSS feed of small chirps by $chirp_htmlusername</description>
-    <link>$feedurl?format=rss</link>
-    <lastBuildDate>$currentdate</lastBuildDate>
-    <pubDate>$currentdate</pubDate>
-    
-    <item>
-    <title></title>
-    <description>$htmlmessage</description>
-    <link>$feedurl#$tweetnum</link>
-    <guid isPermaLink=\"false\">$tweetnum</guid>
-    <pubDate>$currentdate</pubDate>
-    </item>
-    
-    </channel>
-    </rss>";
+<rss version=\"2.0\">
+
+<channel>
+<title>$chirp_htmlusername's chirps</title>
+<description>This is an RSS feed of small chirps by $chirp_htmlusername</description>
+<link>$feedurl?format=rss</link>
+<lastBuildDate>$currentdate</lastBuildDate>
+<pubDate>$currentdate</pubDate>
+
+<item>
+<title></title>
+<description>$htmlmessage</description>
+<link>$feedurl#$tweetnum</link>
+<guid isPermaLink=\"false\">$tweetnum</guid>
+<pubDate>$currentdate</pubDate>
+</item>
+
+</channel>
+</rss>";
             $fd = fopen( $chirp_feedpath, "w" );
             fwrite( $fd, $feedbody );
             fclose( $fd );
@@ -55,12 +55,12 @@ function chirp_action_post()
             $tweets = file_get_contents($chirp_feedpath);
             
             $newtweet = "<item>
-    <title></title>
-    <description>$htmlmessage</description>
-    <link>$feedurl#$tweetnum</link>
-    <guid isPermaLink=\"false\">$tweetnum</guid>
-    <pubDate>$currentdate</pubDate>
-    </item>\n\n";
+<title></title>
+<description>$htmlmessage</description>
+<link>$feedurl#$tweetnum</link>
+<guid isPermaLink=\"false\">$tweetnum</guid>
+<pubDate>$currentdate</pubDate>
+</item>\n\n";
             
             $pos = strpos( $tweets, "<item>" );
             $tweets = substr( $tweets, 0, $pos ).$newtweet.substr( $tweets, $pos );
