@@ -10,7 +10,9 @@ require_once("authenticate.inc.php");
 function chirp_action_directory()
 {
     global $chirp_directoryurl;
-    
+ 
+    echo "<a href=\"?do=home\">Home</a> | Directory | <a href=\"?do=exchangerss\">RSS</a><br/>\n<br />\n";
+   
     $directory = array();
     
     $lines = file( $chirp_directoryurl );

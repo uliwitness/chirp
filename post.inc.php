@@ -20,7 +20,7 @@ function chirp_action_post()
         
         // Set up some values we'll need:
         $feedurl = $_SERVER['SCRIPT_URI'];
-        $currentdate = date( DATE_RSS, time() );
+        $currentdate = date( 'D, d M Y g:i:s O', time() );
         $htmlmessage = htmlentities($_REQUEST['message']);
         
         // Actually post the tweet:

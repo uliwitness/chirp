@@ -15,10 +15,22 @@ function    chirp_tweets_from_rss_to_array( $feed, &$tweets, $name, $url )
     
     while( ($currdesc = current($descriptions[1])) && ($currlink = current($links[1])) && ($currPubDate = current($pubDates[1])) )
     {
-        array_push($tweets,array( "username" => $name, "userurl" => $url, "link" => $currlink, "description" => $currdesc, "pubdate" => $currPubDate ));
+        $timeparts = strptime($currPubDate,'D, d M Y G:i:s O');
+        print_r($timeparts);
+        $timestamp = mktime( $timeparts['tm_hour'], $timeparts['tm_min'], $timeparts['tm_sec'], $timeparts['tm_mon'], $timeparts['tm_mday'], $timeparts['tm_year'] +1900 );
+        
+        echo "$currPubDate # $timestamp<br/>\n";
+        
+        array_push($tweets,array( "username" => $name, "userurl" => $url, "link" => $currlink, "description" => $currdesc, "pubdate" => $currPubDate, "pubdatets" => $timestamp ));
         
         next($descriptions[1]); next($links[1]); next($pubDates[1]);
     }
+}
+
+
+function compare_tweet_times( $a, $b )
+{
+    return ( $b['pubdatets'] - $a['pubdatets'] );
 }
 
 
@@ -30,6 +42,8 @@ function chirp_action_home()
 {
     global $chirp_htmlusername, $chirp_followeespath, $chirp_feedpath, $chirp_username;
     
+    echo "Home | <a href=\"?do=directory\">Directory</a> | <a href=\"?do=exchangerss\">RSS</a><br/>\n<br />\n";
+    
     $followees = parse_ini_file($chirp_followeespath);
     $tweets = array();
     while( list($name, $url) = each($followees) )
@@ -40,6 +54,8 @@ function chirp_action_home()
     
     $feed = file_get_contents( $chirp_feedpath );
     chirp_tweets_from_rss_to_array($feed,$tweets,$chirp_username,"index.php?do=exchangerss");
+    
+    usort( $tweets, "compare_tweet_times" );
     
     echo "<p>Hello ".$chirp_htmlusername.", what's happening?</p>\n";
     echo "<form method=\"post\" action=\"index.php\">\n";
