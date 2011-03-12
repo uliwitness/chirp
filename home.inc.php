@@ -40,7 +40,10 @@ function chirp_action_home()
     
     echo "Home | <a href=\"?do=directory\">Directory</a> | <a href=\"?do=exchangerss\">RSS</a><br/>\n<br />\n";
     
-    $followees = parse_ini_file($chirp_followeespath);
+	if( file_exists($chirp_followeespath) )
+    	$followees = parse_ini_file($chirp_followeespath);
+    else
+    	$followees = array();
     $tweets = array();
     while( list($name, $url) = each($followees) )
     {
@@ -48,7 +51,10 @@ function chirp_action_home()
         chirp_tweets_from_rss_to_array($feed,$tweets,$name,$url);
     }
     
-    $feed = file_get_contents( $chirp_feedpath );
+    if( file_exists($chirp_feedpath) )
+    	$feed = file_get_contents( $chirp_feedpath );
+    else
+    	$feed = "";
     chirp_tweets_from_rss_to_array($feed,$tweets,$chirp_username,"index.php?do=exchangerss");
     
     usort( $tweets, "compare_tweet_times" );
