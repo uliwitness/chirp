@@ -7,7 +7,7 @@ An RSS-based, distributed Twitter clone. (server-side, not client-side)
 INSTALLATION
 ------------
 
-Upload index.php, config and tweet to your server. Edit the config.ini file to contain your username and password.
+Upload index.php, config and tweet to your server. Make sure the script has write access to the "tweet" folder. Edit the config.ini file to contain your username, password and time zone.
 
 
 USAGE
