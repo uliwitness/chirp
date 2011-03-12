@@ -8,7 +8,8 @@ $chirp_feedfolder = dirname($_SERVER['SCRIPT_FILENAME']).'/tweets';
 $chirp_feedpath = $chirp_feedfolder.'/feed.rss';
 $chirp_feedidpath = $chirp_feedfolder.'/feedid.txt';
 $chirp_followeespath = $chirp_feedfolder.'/followees.ini';
-$chirp_htmlusername = htmlentities($_SERVER['PHP_AUTH_USER']);
+$chirp_htmlusername = htmlentities(trim($_SERVER['PHP_AUTH_USER']));
+$chirp_username = trim($_SERVER['PHP_AUTH_USER']);
 
 // Read prefs:
 $chirp_config = parse_ini_file( $chirp_configpath );

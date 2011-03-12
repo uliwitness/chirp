@@ -21,12 +21,12 @@ function chirp_action_directory()
         next($lines);
     }
     reset( $directory );
-    while( list($key, $val) = each($directory) )
+    while( list($name, $url) = each($directory) )
     {
-        $htmlkey = htmlentities($key);
-        $urlkey = urlencode($key);
-        $urlval = urlencode($val);
-        echo "<a href=\"$val\">$htmlkey</a> [ <a href=\"?do=follow&name=$urlkey&url=$urlval\">Follow</a> ]<br />\n";   // +++ SANITIZE !
+        $htmlname = htmlentities($name);
+        $urlname = urlencode($name);
+        $urlurl = urlencode($url);
+        echo "<a href=\"$url\">$htmlname</a> [ <a href=\"?do=follow&name=$urlname&url=$urlurl\">Follow</a> ]<br />\n";   // +++ SANITIZE !
     }
 }
 ?>
