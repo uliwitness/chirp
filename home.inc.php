@@ -15,12 +15,8 @@ function    chirp_tweets_from_rss_to_array( $feed, &$tweets, $name, $url )
     
     while( ($currdesc = current($descriptions[1])) && ($currlink = current($links[1])) && ($currPubDate = current($pubDates[1])) )
     {
-        $timeparts = strptime($currPubDate,'D, d M Y G:i:s O');
-        print_r($timeparts);
-        $timestamp = mktime( $timeparts['tm_hour'], $timeparts['tm_min'], $timeparts['tm_sec'], $timeparts['tm_mon'], $timeparts['tm_mday'], $timeparts['tm_year'] +1900 );
-        
-        echo "$currPubDate # $timestamp<br/>\n";
-        
+        $timestamp = strtotime($currPubDate);
+                
         array_push($tweets,array( "username" => $name, "userurl" => $url, "link" => $currlink, "description" => $currdesc, "pubdate" => $currPubDate, "pubdatets" => $timestamp ));
         
         next($descriptions[1]); next($links[1]); next($pubDates[1]);
