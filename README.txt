@@ -13,4 +13,6 @@ Upload the contents of this folder to your server. Make sure the script has writ
 USAGE
 -----
 
-Call up the index.php page. Write tweets, and they will be added to an RSS feed file. Call up the RSS feed by viewing index.php?do=exchangerss
+index.php                   -   Write tweets, and they will be added to an RSS feed file.
+index.php?do=exchangerss    -   View the RSS feed of your own tweets, which is the URL that others will subscribe to.
+index.php?do=directory      -   View the user directory and/or follow someone.
