@@ -23,6 +23,7 @@ else
 	$configpath = dirname($_SERVER['SCRIPT_FILENAME']).'/config/config.ini';
 	$feeddirectory = dirname($_SERVER['SCRIPT_FILENAME']).'/tweets';
 	$feedpath = $feeddirectory.'/feed.rss';
+	$feedidpath = $feeddirectory.'/feedid.txt';
 	
 	$config = parse_ini_file( $configpath );
    
@@ -40,7 +41,10 @@ date_default_timezone_set( $config['TIMEZONE'] );
 
 $htmlusername = htmlentities($_SERVER['PHP_AUTH_USER']);
 $feedurl = $_SERVER['SCRIPT_URI'];
-$tweetnum = 1;	// +++
+$tweetnum = file_exists($feedidpath) ? (file_get_contents($feedidpath) +1) : 1;
+$fd = fopen($feedidpath,"w");
+fwrite($fd,$tweetnum);
+fclose($fd);
 $currentdate = date( DATE_RSS, time() );
 
 if( isset($_REQUEST['message']) )
@@ -88,13 +92,9 @@ if( isset($_REQUEST['message']) )
 		$pos = strpos( $tweets, "<item>" );
 		$tweets = substr( $tweets, 0, $pos ).$newtweet.substr( $tweets, $pos );
 		
-		echo $tweets;
-		
 		$fd = fopen( $feedpath, "w" );
 		fwrite( $fd, $tweets );
 		fclose( $fd );
-		
-		exit;
 	}
 }
 else if( isset($_REQUEST['format']) && $_REQUEST['format'] == "rss" )
