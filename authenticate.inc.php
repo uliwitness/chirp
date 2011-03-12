@@ -22,7 +22,7 @@ function chirp_authenticate_admin()
     // open a user/pass prompt:
     if( !isset($_SERVER['PHP_AUTH_USER']) )
     {
-        header('WWW-Authenticate: Basic realm="My Realm"');
+        header('WWW-Authenticate: Basic realm="Chirp"');
         header('HTTP/1.0 401 Unauthorized');
         echo 'Text to send if user hits Cancel button';
         return false;
@@ -32,7 +32,7 @@ function chirp_authenticate_admin()
         if( strtolower(trim($_SERVER['PHP_AUTH_USER'])) != strtolower($chirp_config['USER'])
                || trim($_SERVER['PHP_AUTH_PW']) != $chirp_config['PASS'] )
         {
-            header('WWW-Authenticate: Basic realm="My Realm"');
+            header('WWW-Authenticate: Basic realm="Chirp"');
             header('HTTP/1.0 401 Unauthorized');
             echo 'Invalid username or password.';
             return false;
