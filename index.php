@@ -36,6 +36,8 @@ else
 	}
 }
 
+date_default_timezone_set( $config['TIMEZONE'] );
+
 $htmlusername = htmlentities($_SERVER['PHP_AUTH_USER']);
 $feedurl = $_SERVER['SCRIPT_URI'];
 $tweetnum = 1;	// +++
