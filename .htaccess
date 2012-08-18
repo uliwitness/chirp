@@ -1,4 +1,7 @@
-<IfModule mod_rewrite.c>
 RewriteEngine on
+RewriteRule   ^settings\.ini$   	index.php?action=404
+RewriteRule   ^([A-Za-z0-9_]+)$   	index.php?shortname=$1
+RewriteRule   ^([A-Za-z0-9_]+)\/$   index.php?shortname=$1
 RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization},L]
-</IfModule>
+
+errordocument 404 /index.php?action=404
