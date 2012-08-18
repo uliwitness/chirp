@@ -7,7 +7,9 @@ An RSS-based, distributed Twitter clone. (server-side, not client-side)
 INSTALLATION
 ------------
 
-Upload the contents of this folder to your server. Make sure the script has write access to the "tweet" folder. Edit the config/config.ini file to contain your username, password and time zone.
+Upload the contents of this folder to your server. Edit the settings.ini file to contain login information to a MySQL database named "new_bird". Comment out the "return;" statement at the start of the "else if( strcmp($_GET['action'],"init") == 0 )" block in index.php.
+
+Bring up the page index.php?action=init in your browser to set up the database, then uncomment the return statement again.
 
 
 USAGE
