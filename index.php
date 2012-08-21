@@ -70,6 +70,14 @@
 	    return $userid;
 	}
 	
+	function indent( $depth )
+	{
+		$str = "&nbsp;";
+		for( $x = 0; $x < $depth; $x++ )
+			$str .= "\t";
+		return $str;
+	}
+	
 	global $gPageTitle;
 	
 	$settings = array();
@@ -107,6 +115,44 @@
 		$inreplyto=mysql_real_escape_string($_REQUEST['inreplyto']);
 		if( !isset($_REQUEST['inreplyto']) || strlen($inreplyto) == 0 || !is_integer($inreplyto) )
 			$inreplyto = 0;
+		$result = mysql_query ("INSERT INTO statuses VALUES ( NULL, '$userid', '$inreplyto', '$text' )");
+		
+		print_r( mysql_error() );
+	}
+	else if( strcmp($_REQUEST['action'],"importrss") == 0 )
+	{
+		$userid = http_authenticated_userid();
+		if( $userid === false )
+			return;
+
+		$reader = new XMLReader;
+		$reader->open( $_REQUEST['url'] );
+		
+		$indentLevel = 0;
+		
+		while( $reader->read() )
+		{
+			if( $reader->nodeType == XMLReader::ELEMENT )
+			{
+				$indentLevel++;
+				echo indent($indentLevel)."&lt;".$reader->name."&gt;<br />";
+			}
+			else if( $reader->nodeType == XMLReader::END_ELEMENT )
+			{
+				$indentLevel--;
+				echo indent($indentLevel)."&lt;/".$reader->name."&gt;<br />";
+			}
+			else if( $reader->nodeType == XMLReader::TEXT )
+				echo indent($indentLevel).htmlentities($reader->value)."<br />";
+			else if( $reader->nodeType == XMLReader::CDATA )
+				echo indent($indentLevel).htmlentities($reader->value)."<br />";
+			else if( $reader->nodeType == XMLReader::SIGNIFICANT_WHITESPACE || $reader->nodeType == XMLReader::WHITESPACE )
+				;
+			else
+				echo indent($indentLevel)."[[".$reader->nodeType.": ".$reader->name.": ".htmlentities($reader->value)."]]<br />";
+		}
+		$reader->close();
+		
 		$result = mysql_query ("INSERT INTO statuses VALUES ( NULL, '$userid', '$inreplyto', '$text' )");
 		
 		print_r( mysql_error() );
