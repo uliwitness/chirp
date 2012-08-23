@@ -70,12 +70,58 @@
 	    return $userid;
 	}
 	
-	function indent( $depth )
+	function unique_tag_name( $basename, $peers )
 	{
-		$str = "&nbsp;";
-		for( $x = 0; $x < $depth; $x++ )
-			$str .= "\t";
-		return $str;
+		$currname = $basename;
+		$x = 1;
+		while( isset($peers[$currname]) )
+		{
+			$currname = $basename.$x;
+			$x++;
+		}
+		return $currname;
+	}
+	
+	
+	function parse_feed( $reader )
+	{
+		$tagstack = array(array());
+		$tagnamestack = array("root");
+		
+		while( $reader->read() )
+		{
+			if( $reader->nodeType == XMLReader::ELEMENT )
+			{
+				$tagname = unique_tag_name($reader->name,$tagstack[sizeof($tagstack)-1]);
+				if( $reader->isEmptyElement )
+				{
+					$tagstack[sizeof($tagstack)-1][$tagname] = array();
+				}
+				else
+				{
+					array_push( $tagnamestack, $tagname );
+					array_push( $tagstack, array() );
+				}
+			}
+			else if( $reader->nodeType == XMLReader::END_ELEMENT )
+			{
+				$currtag = array_pop($tagstack);
+				$currtagname = array_pop($tagnamestack);
+				$tagstack[sizeof($tagstack)-1][$currtagname] = $currtag;
+			}
+			else if( $reader->nodeType == XMLReader::TEXT )
+			{
+				$tagstack[sizeof($tagstack)-1] = $reader->value;
+			}
+			else if( $reader->nodeType == XMLReader::CDATA )
+			{
+				$tagstack[sizeof($tagstack)-1] = $reader->value;
+			}
+			else if( $reader->nodeType == XMLReader::SIGNIFICANT_WHITESPACE || $reader->nodeType == XMLReader::WHITESPACE )
+				;
+		}
+		
+		return $tagstack[0];
 	}
 	
 	global $gPageTitle;
@@ -128,34 +174,30 @@
 		$reader = new XMLReader;
 		$reader->open( $_REQUEST['url'] );
 		
-		$indentLevel = 0;
+		$feed = parse_feed( $reader );
 		
-		while( $reader->read() )
-		{
-			if( $reader->nodeType == XMLReader::ELEMENT )
-			{
-				$indentLevel++;
-				echo indent($indentLevel)."&lt;".$reader->name."&gt;<br />";
-			}
-			else if( $reader->nodeType == XMLReader::END_ELEMENT )
-			{
-				$indentLevel--;
-				echo indent($indentLevel)."&lt;/".$reader->name."&gt;<br />";
-			}
-			else if( $reader->nodeType == XMLReader::TEXT )
-				echo indent($indentLevel).htmlentities($reader->value)."<br />";
-			else if( $reader->nodeType == XMLReader::CDATA )
-				echo indent($indentLevel).htmlentities($reader->value)."<br />";
-			else if( $reader->nodeType == XMLReader::SIGNIFICANT_WHITESPACE || $reader->nodeType == XMLReader::WHITESPACE )
-				;
-			else
-				echo indent($indentLevel)."[[".$reader->nodeType.": ".$reader->name.": ".htmlentities($reader->value)."]]<br />";
-		}
 		$reader->close();
 		
-		$result = mysql_query ("INSERT INTO statuses VALUES ( NULL, '$userid', '$inreplyto', '$text' )");
+		//print_r( $feed );
 		
-		print_r( mysql_error() );
+		$channel = $feed['rss']['channel'];
+		$x = 1;
+		$itemName = 'item';
+		while( true )
+		{
+			if( !isset($channel[$itemName]) )
+				break;
+			
+			$text = $channel[$itemName]['description'];
+			$inreplyto = 0;
+			$result = mysql_query ("INSERT INTO statuses VALUES ( NULL, '$userid', '$inreplyto', '$text' )");
+		
+			print_r( mysql_error() );
+			
+			$x++;
+			$itemName = 'item'.$x;
+		}
+		
 	}
 	else if( strcmp($_REQUEST['action'],"newuser") == 0 )
 	{
@@ -179,7 +221,7 @@
 	{
 		return;	// Comment this line to set up everything.
 
-		$result = mysql_query( "CREATE TABLE statuses ( id int NOT NULL PRIMARY KEY AUTO_INCREMENT, user_id int NOT NULL, replyto_id int, text varchar(140) )");
+		$result = mysql_query( "CREATE TABLE statuses ( id int NOT NULL PRIMARY KEY AUTO_INCREMENT, user_id int NOT NULL, replyto_id int, text varchar(256) )");
 
 		print_r( mysql_error() );
 
