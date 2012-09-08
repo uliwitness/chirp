@@ -77,9 +77,13 @@
 			break;
 		
 		$text = $channel[$itemName]['description'];
+		$url = $channel[$itemName]['link'];
+		$timestamp = strtotime($channel[$itemName]['pubDate']);
 		$inreplyto = 0;
-		$result = mysql_query ("INSERT INTO statuses VALUES ( NULL, '$userid', '$inreplyto', '$text' )");
-	
+		$result = mysql_query ("INSERT INTO statuses VALUES ( NULL, '$userid', '$inreplyto', '$text', '$url', '$timestamp' )");
+		if( mysql_errno() != 0 )
+			$result = mysql_query( "UPDATE statuses SET text='$text', inreplyto='$inreplyto', timestamp='$timestamp' WHERE userid='$userid' AND url='$url'" );
+		
 		print_r( mysql_error() );
 		
 		$x++;
