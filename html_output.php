@@ -16,9 +16,13 @@
 		echo "<link rel=\"alternate\" type=\"application/rss+xml\" title=\"".htmlentities($gPageTitle)."\" href=\"$feedurl\" />\n";
 		echo "</head>\n<body>";
 		echo "<div class=\"actions\">";
-		echo "<a href=\"index.php?action=newuser&shortname=testuser&fullname=Test+User&location=The+Net&homepage=&biography=I+did+something&avatarurl=&password=1234&email=testemail\">New Test User</a><br />";
-		echo "<a href=\"index.php?action=importrss&url=http://orangejuiceliberationfront.com/feed/\">Import a Feed</a><br />";
 		echo "<a href=\"$feedurl\">RSS Feed</a><br />";
+		echo "<a href=\"index.php?action=addfeed&shortname=zathrasdeblog&fullname=Zathras.de%20Blog&avatarurl=ElectricSheep.png&feedurl=http://orangejuiceliberationfront.com/feed/\">Add external user (Feed) Test</a><br />";
+		if( isset($_REQUEST['shortname']) )
+		{
+			$username = rawurlencode($_REQUEST['shortname']);
+			echo "<a href=\"index.php?action=importrss&shortname=$username\">Import new messages for this user</a><br />";
+		}
 		echo "</div>";
 		echo "<div class=\"postfield\"><form action=\"index.php\" method=\"POST\">What are you doing?<br /><input type=\"text\" name=\"text\" size=\"60\" /><input type=\"hidden\" name=\"action\" value=\"newstatus\"></form></div>";
 	}
