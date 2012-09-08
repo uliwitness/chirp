@@ -6,7 +6,6 @@
 		echo "<div class=\"actions\">";
 		echo "<a href=\"index.php?action=newuser&shortname=testuser&fullname=Test+User&location=The+Net&homepage=&biography=I+did+something&avatarurl=&password=1234&email=testemail\">New Test User</a><br />";
 		echo "<a href=\"index.php?action=importrss&url=http://orangejuiceliberationfront.com/feed/\">Import a Feed</a><br />";
-		echo "<a href=\"index.php?action=init\">Init Database</a><br />";
 		echo "</div>";
 		echo "<div class=\"postfield\"><form action=\"index.php\" method=\"POST\">What are you doing?<br /><input type=\"text\" name=\"text\" size=\"60\" /><input type=\"hidden\" name=\"action\" value=\"newstatus\"></form></div>";
 	}
