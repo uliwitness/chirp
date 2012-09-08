@@ -2,17 +2,23 @@
 	function print_header()
 	{
 		global $gPageTitle;
-		echo "<html><head><title>".htmlentities($gPageTitle)."</title><link rel=\"stylesheet\" href=\"styles.css\" type=\"text/css\" /></head><body>";
+		
+		echo "<html>\n<head>\n<title>".htmlentities($gPageTitle)."</title>\n";
+		echo "<link rel=\"stylesheet\" href=\"styles.css\" type=\"text/css\" />\n";
+		$feedurl = "feed://".$_SERVER['HTTP_HOST']."/index.php?format=rss";
+		if( isset($_REQUEST['shortname']) )
+		{
+			echo "<link rel=\"alternate\" type=\"application/rss+xml\" title=\"All Statuses\" href=\"$feedurl\" />\n";
+			$username = rawurlencode($_REQUEST['shortname']);
+			$feedurl = "feed://".$_SERVER['HTTP_HOST']."/index.php?shortname=$username&format=rss";
+		}
+		
+		echo "<link rel=\"alternate\" type=\"application/rss+xml\" title=\"".htmlentities($gPageTitle)."\" href=\"$feedurl\" />\n";
+		echo "</head>\n<body>";
 		echo "<div class=\"actions\">";
 		echo "<a href=\"index.php?action=newuser&shortname=testuser&fullname=Test+User&location=The+Net&homepage=&biography=I+did+something&avatarurl=&password=1234&email=testemail\">New Test User</a><br />";
 		echo "<a href=\"index.php?action=importrss&url=http://orangejuiceliberationfront.com/feed/\">Import a Feed</a><br />";
-		if( isset($_REQUEST['shortname']) )
-		{
-			$username = rawurlencode($_REQUEST['shortname']);
-			echo "<a href=\"feed://".$_SERVER['HTTP_HOST']."/index.php?shortname=$username&format=rss\">RSS Feed</a><br />";
-		}
-		else
-			echo "<a href=\"feed://".$_SERVER['HTTP_HOST']."/index.php?format=rss\">RSS Feed</a><br />";
+		echo "<a href=\"$feedurl\">RSS Feed</a><br />";
 		echo "</div>";
 		echo "<div class=\"postfield\"><form action=\"index.php\" method=\"POST\">What are you doing?<br /><input type=\"text\" name=\"text\" size=\"60\" /><input type=\"hidden\" name=\"action\" value=\"newstatus\"></form></div>";
 	}
