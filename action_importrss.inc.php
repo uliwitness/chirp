@@ -1,4 +1,18 @@
 <?php
+	function download_data($url)
+	{
+		$ch = curl_init();
+		$timeout = 5;
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+		$data = curl_exec($ch);
+		curl_close($ch);
+		
+		return $data;
+	}
+	
+	
 	function unique_tag_name( $basename, $peers )
 	{
 		$currname = $basename;
@@ -61,8 +75,9 @@
 	if( strlen($userinfo['feedurl']) == 0 )
 		return;	// Don't need to import from one of our local users.
 	
+	$xmldata = download_data( $userinfo['feedurl'] );
 	$reader = new XMLReader;
-	$reader->open( $userinfo['feedurl'] );
+	$reader->xml( $xmldata );
 	
 	$feed = parse_feed( $reader );
 	
