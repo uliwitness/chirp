@@ -7,8 +7,8 @@ An RSS-based, distributed Twitter clone. (server-side, not client-side)
 Installation
 ------------
 
-Upload the contents of this folder to your server. Edit the settings.ini file to contain
-login information to a MySQL database.
+Upload the contents of this folder to your server, so it lies at the root of a domain
+or sub-domain. Edit the settings.ini file to contain login information to a MySQL database.
 Then bring up the site in a browser to initialize the database and you'll get a form to
 create your admin user.
 
