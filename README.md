@@ -8,7 +8,7 @@ Installation
 ------------
 
 Upload the contents of this folder to your server. Edit the settings.ini file to contain
-login information to a MySQL database named "new_bird".
+login information to a MySQL database.
 Then bring up the site in a browser to initialize the database and you'll get a form to
 create your admin user.
 

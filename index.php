@@ -96,7 +96,7 @@
 		$settings[$parts[0]] = trim($parts[1]);
 	}
 	if( !isset($settings['dbserver']) || !isset($settings['dbuser'])
-		|| !isset($settings['dbpassword']) )
+		|| !isset($settings['dbpassword']) || !isset($settings['dbname']) )
 	{
 		echo "<b>Setup error. No/invalid ini file.</b>";
 		return;
@@ -104,7 +104,7 @@
 	
 	mysql_connect( $settings['dbserver'], $settings['dbuser'], $settings['dbpassword'] );
 	
-	mysql_select_db( "new_bird" );
+	mysql_select_db( $settings['dbname'] );
 	
 	mysql_set_charset("utf8");
 	
