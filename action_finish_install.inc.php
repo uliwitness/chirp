@@ -1,5 +1,8 @@
 <?php
 		global $gPageTitle;
+
+		if( strlen($_REQUEST['shortname']) == 0 )
+			return;
 		
 		$result = mysql_query( "SELECT id FROM users" );
 		if( mysql_errno() == 0 )	// Already have a users table?
