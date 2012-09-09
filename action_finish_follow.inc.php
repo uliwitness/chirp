@@ -16,5 +16,5 @@
 		
 		$gPageTitle = "Following user";
 		
-		echo make_header() . "Now following".htmlentities($_REQUEST['shortname'])."." . make_footer();
+		echo make_header() . "Now following ".htmlentities($_REQUEST['shortname'])."." . make_footer();
 ?>
