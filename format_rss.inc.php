@@ -9,8 +9,8 @@
 <title>'.htmlentities($gPageTitle).'</title>
 <description>This is an example of an RSS feed</description>
 <link>http://'.htmlentities($_SERVER['HTTP_HOST']).'/</link>
-<lastBuildDate>Mon, 28 Aug 2006 11:12:55 -0400 </lastBuildDate>
-<pubDate>Tue, 29 Aug 2006 09:00:00 -0400</pubDate>
+<lastBuildDate>'.date('D, d M Y H:i:s O').'</lastBuildDate>
+<pubDate>'.date('D, d M Y H:i:s O').'</pubDate>
 ';
 	}
 	
@@ -21,9 +21,9 @@
 		echo '<item>
 <title></title>
 <description>'.$text.'</description>
-<link>http://'.htmlentities($_SERVER['HTTP_HOST']).'/index.php?statusid='.$id.'</link>
+<link>'.$statusdict['url'].'</link>
 <guid isPermaLink="false">'.$id.'</guid>
-<pubDate>Tue, 29 Aug 2006 09:00:00 -0400</pubDate>
+<pubDate>'.date('D, d M Y H:i:s O',$statusdict['timestamp']).'</pubDate>
 </item>
 ';
 	}
