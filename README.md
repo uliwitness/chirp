@@ -16,9 +16,21 @@ create your admin user.
 Usage
 -----
 
-The idea is that you install this on one domain or sub-domain, preferably at root level
+The idea is that you install this on one domain or sub-domain, MUST BE AT ROOT LEVEL
 so you get a short URL. This is then equivalent to one "Twitter account" for one person,
 and will import statuses from other people whose RSS feeds you subscribe to ("follow").
+
+To follow someone, use the Follow link *on your server* and type in their domain name
+(without the "http://"!). After that, be sure to immediately click "Import new messages
+for this user". This will not be necessary in the future, but is currently manual.
+You currently have to go to each user's page on *your* server to fetch their newest
+statuses. If you forget this, you may have to manually type in a URL like
+http://yourserver.com/index.php?action=importrss&shortname=otherusersdomain
+
+To set up your own avatar icon, copy a square image into the "avatars" folder on your
+server before you install. Currently you can't change the avatar and there's no interface
+for uploading images. Will come in the future.
+
 
 
 License
