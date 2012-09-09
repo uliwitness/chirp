@@ -17,7 +17,7 @@
 		echo "</head>\n<body>";
 		echo "<div class=\"actions\">";
 		echo "<a href=\"$feedurl\">RSS Feed</a><br />";
-		echo "<a href=\"index.php?action=addfeed&shortname=zathrasdeblog&fullname=Zathras.de%20Blog&avatarurl=ElectricSheep.png&feedurl=http://orangejuiceliberationfront.com/feed/\">Add external user (Feed) Test</a><br />";
+		echo "<a href=\"index.php?action=addfeed&shortname=zathrasdeblog&fullname=Zathras.de%20Blog&avatarurl=UliAvatar.png&feedurl=http://orangejuiceliberationfront.com/feed/\">Add external user (Feed) Test</a><br />";
 		if( isset($_REQUEST['shortname']) )
 		{
 			$username = rawurlencode($_REQUEST['shortname']);
