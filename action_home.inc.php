@@ -3,7 +3,12 @@
 
 	$querystr = "SELECT * FROM statuses";
 	$gPageTitle = "All Statuses";
-	if( strcmp($_REQUEST['action'],"timeline") == 0 )
+	if( isset($_REQUEST['statusid']) && strlen($_REQUEST['statusid']) > 0 && is_numeric($_REQUEST['statusid']) )
+	{
+		$gPageTitle = "Status ID ".$_REQUEST['statusid'];
+		$querystr = "SELECT * FROM statuses WHERE id='".mysql_real_escape_string($_REQUEST['statusid'])."'";
+	}
+	else if( strcmp($_REQUEST['action'],"timeline") == 0 )
 	{
 		$userid = http_authenticated_userid(true);
 		$userinfo = userinfo_from_userid( $userid );

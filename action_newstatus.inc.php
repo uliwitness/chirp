@@ -6,8 +6,18 @@
 		}
 
 		$text = mysql_real_escape_string($_REQUEST['text']);
-		if( isset( $_REQUEST['inreplyto'] ) )
-			$inreplyto = mysql_real_escape_string($_REQUEST['inreplyto']);
+		
+		$inreplyto = $_REQUEST['statusid'];
+		if( isset($inreplyto) && strlen($inreplyto) > 0 && is_numeric($inreplyto) )
+		{
+			$result = mysql_query( "SELECT * FROM statuses WHERE id='$statusid'" );
+			print_r( mysql_error() );
+			$row = mysql_fetch_assoc($result);
+			
+			$inreplyto = mysql_real_escape_string($row['url']);
+			if( strlen($inreplyto) == 0 )
+				$inreplyto = mysql_real_escape_string("http://".$_SERVER['HTTP_HOST']."/index.php?statusid=".$_REQUEST['statusid']);
+		}
 		else
 			$inreplyto = '';
 		$time = time();
