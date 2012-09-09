@@ -95,7 +95,7 @@
 	}
 	else
 		$homepage = "";
-	$result = mysql_query( "UPDATE users SET fullname='$fullname', biography='$bio', avatarurl='$avatarurl' homepage='$homepage' WHERE userid='$userid'" );
+	$result = mysql_query( "UPDATE users SET fullname='$fullname', biography='$bio', avatarurl='$avatarurl', homepage='$homepage' WHERE id='$userid'" );
 	print_r( mysql_error() );
 	
 	$x = 1;
@@ -111,7 +111,7 @@
 		$inreplyto = 0;
 		$result = mysql_query( "INSERT INTO statuses VALUES ( NULL, '$userid', '$inreplyto', '$text', '$url', '$timestamp' )" );
 		if( mysql_errno() != 0 )
-			$result = mysql_query( "UPDATE statuses SET text='$text', inreplyto='$inreplyto', timestamp='$timestamp' WHERE userid='$userid' AND url='$url'" );
+			$result = mysql_query( "UPDATE statuses SET text='$text', replyto_id='$inreplyto', timestamp='$timestamp' WHERE user_id='$userid' AND url='$url'" );
 		
 		print_r( mysql_error() );
 		
