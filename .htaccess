@@ -1,9 +1,9 @@
 RewriteEngine on
-RewriteRule   ^$   					index.php?action=timeline
-RewriteRule   ^settings\.ini$   	index.php?action=404
-RewriteRule   ^([A-Za-z0-9_]+)$   	index.php?shortname=$1
-RewriteRule   ^([A-Za-z0-9_]+)\/$   index.php?shortname=$1
-RewriteRule   ^microblog\.rss$   	index.php?action=microblog&format=rss
+RewriteRule   ^$   								index.php?action=timeline
+RewriteRule   ^settings\.ini$   				index.php?action=404
+RewriteRule   ^([A-Za-z0-9_]+)$   				index.php?shortname=$1
+RewriteRule   ^([A-Za-z0-9_]+)\/$  	 			index.php?shortname=$1
+RewriteRule   ^\.well-known/microblog\.rss$   	index.php?action=microblog&format=rss
 RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization},L]
 
 errordocument 404 /index.php?action=404

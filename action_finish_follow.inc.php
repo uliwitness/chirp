@@ -9,7 +9,7 @@
 		$homepage = '';
 		$biography = '';
 		$avatarurl = '';
-		$feedurl = mysql_real_escape_string("http://".$_REQUEST['shortname']."/microblog.rss");
+		$feedurl = mysql_real_escape_string("http://".$_REQUEST['shortname']."/.well-known/microblog.rss");
 		$result = mysql_query( "INSERT INTO users VALUES ( NULL, '$shortname', '$fullname', '$location', '$homepage', '$biography', '$avatarurl', '', '', '$feedurl', 0 )" );
 		if( mysql_errno() != 0 )	// Already know this user?
 		{
