@@ -35,6 +35,25 @@ server before you install. Currently you can't change the avatar and there's no 
 for uploading images. Will come in the future.
 
 
+What's this good for?
+---------------------
+
+The idea is to lay down a simple, open exchange format for microblogs like App.net
+and Twitter (RSS) that can easily be load-balanced via Akamai or similar services.
+Everyone who can put an RSS file on a server can have a microblog. Everyone can
+follow them, whether they host it themselves or have one at Twitter.
+
+For most users, their ISP or web hoster or one of the big services would host
+the feed, but it won't matter, because they're all interoperable. If Warner Bros.
+want to host Robert Downey Jr.'s statuses on their server, they can. If a user
+wants to use an iPhone client application to post, they can.
+
+Since the user names are domain names, existing services can easily be integrated
+by using subdomains. E.g. @uliwitness could map to uliwitness.twitter.com.
+
+To make this more likely, this code is under a very permissive license. Everyone
+can grab this code and just use it. Go ahead.
+
 
 License
 -------
