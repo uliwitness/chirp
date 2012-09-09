@@ -13,13 +13,23 @@
 	function userid_for_shortname_password( $unsafe_shortname, $unsafe_password, $mustBeAdmin = false )
 	{
 		$shortname = mysql_real_escape_string($unsafe_shortname);
+		if( strlen($unsafe_password) == 0 )
+			return false;
 		$passwordhash = mysql_real_escape_string(crypt($unsafe_password,"hellacomplicated"));
+		if( strcmp($passwordhash,crypt("","hellacomplicated")) == 0 )
+			return false;
 		$querystr = "SELECT id FROM users WHERE shortname='$shortname' AND passwordhash='$passwordhash'";
 		if( $mustBeAdmin )
 			$querystr .= ' AND isAdmin=1';
 		$result = mysql_query( $querystr );
+		if( $result === false )
+			return false;
 		$row = mysql_fetch_assoc($result);
+		if( $row == false )
+			return false;
 		$userid = mysql_real_escape_string($row['id']);
+		if( $userid == 0 )
+			return false;
 
 		print_r( mysql_error() );
 		
@@ -65,8 +75,12 @@
 	    else    // Have a username/password? Compare to config file:
 	    {
 		    $userid = userid_for_shortname_password( strtolower(trim($_SERVER['PHP_AUTH_USER'])), trim($_SERVER['PHP_AUTH_PW']), $mustBeAdmin );
-		    if( strlen(trim($_SERVER['PHP_AUTH_PW'])) == 0 )	// Don't allow empty passwords for logging in. That'd be a user whose feed a real user subscribes to.
+		    if( $userid === false )
+		    {
+		        header('WWW-Authenticate: Basic realm="Chirp"');
+		        header('HTTP/1.0 401 Unauthorized');
 		    	return false;
+		    }
 	    }
 	    
 	    return $userid;
