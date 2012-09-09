@@ -7,11 +7,11 @@
 	print_header();
 	
 	if( !isset($_REQUEST['shortname']) )
-		$result = mysql_query ("SELECT * FROM statuses ORDER BY id DESC LIMIT 10");
+		$result = mysql_query ("SELECT * FROM statuses ORDER BY timestamp DESC");
 	else
 	{
 		$userid = userid_from_shortname($_REQUEST['shortname']);
-		$result = mysql_query ("SELECT * FROM statuses WHERE user_id='$userid' ORDER BY id DESC LIMIT 10");
+		$result = mysql_query ("SELECT * FROM statuses WHERE user_id='$userid' ORDER BY timestamp DESC");
 	}
 	while( ($row = mysql_fetch_assoc($result)) !== false )
 		print_one_status_message($row);
