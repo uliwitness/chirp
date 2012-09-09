@@ -7,7 +7,6 @@
 	
 	$str = '<form action="index.php" method="POST">
 	<input type="hidden" name="action" value="finish_profile" />
-	To set up Chirp, please create the first administrator user:<br />
 	<b>Short Name:</b> '.htmlentities($userinfo['shortname']).'<br />
 	<b>Full Name:</b> <input type="text" name="fullname" value="'.htmlentities($userinfo['fullname']).'" /><br />
 	<b>Location:</b> <input type="text" name="location" value="'.htmlentities($userinfo['location']).'" /><br />
@@ -21,7 +20,7 @@
 	{
 		if( $currfile[0] == '.' )
 			continue;
-		if( strcmp($currfile, $userinfo['avatarurl']) == 0 )
+		if( strcmp('http://'.$_SERVER['HTTP_HOST'].'/avatars/'.$currfile, $userinfo['avatarurl']) == 0 )
 			$selected = ' selected="selected"';
 		else
 			$selected = '';
