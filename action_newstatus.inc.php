@@ -6,7 +6,8 @@
 		}
 
 		$text = mysql_real_escape_string($_REQUEST['text']);
-		$inreplyto = mysql_real_escape_string($_REQUEST['inreplyto']);
+		if( isset( $_REQUEST['inreplyto'] ) )
+			$inreplyto = mysql_real_escape_string($_REQUEST['inreplyto']);
 		if( !isset($_REQUEST['inreplyto']) || strlen($inreplyto) == 0 || !is_integer($inreplyto) )
 			$inreplyto = 0;
 		$time = time();
