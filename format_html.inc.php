@@ -19,11 +19,7 @@
 		$str .= "<a href=\"index.php?action=home\">Home</a><br />";
 		$str .= "<a href=\"$feedurl\">RSS Feed</a><br />";
 		$str .= "<a href=\"index.php?action=follow\">Follow</a><br />";
-		if( isset($_REQUEST['shortname']) )
-		{
-			$username = rawurlencode($_REQUEST['shortname']);
-			$str .= "<a href=\"index.php?action=importrss&shortname=$username\">Import new messages for this user</a><br />";
-		}
+		$str .= "<a href=\"index.php?action=importrss\">Refresh Timeline</a><br />";
 		$str .= "</div>";
 		$str .= "<div class=\"postfield\"><form action=\"index.php\" method=\"POST\">What are you doing?<br /><input type=\"text\" name=\"text\" size=\"60\" /><input type=\"hidden\" name=\"action\" value=\"newstatus\"></form></div>";
 		
