@@ -8,8 +8,8 @@
 		$text = mysql_real_escape_string($_REQUEST['text']);
 		if( isset( $_REQUEST['inreplyto'] ) )
 			$inreplyto = mysql_real_escape_string($_REQUEST['inreplyto']);
-		if( !isset($_REQUEST['inreplyto']) || strlen($inreplyto) == 0 || !is_integer($inreplyto) )
-			$inreplyto = 0;
+		else
+			$inreplyto = '';
 		$time = time();
 		$url = "http://".$_SERVER['HTTP_HOST']."/index.php?statusid=";
 		$result = mysql_query( "INSERT INTO statuses VALUES ( NULL, '$userid', '$inreplyto', '$text', '$url', $time )" );

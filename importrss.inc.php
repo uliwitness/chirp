@@ -122,10 +122,10 @@
 			$text = mysql_real_escape_string(html_entity_decode($channel[$itemName]['description']));
 			$url = mysql_real_escape_string($channel[$itemName]['link']);
 			$timestamp = strtotime($channel[$itemName]['pubDate']);
-			$inreplyto = 0;
+			$inreplyto = '';
 			$result = mysql_query( "INSERT INTO statuses VALUES ( NULL, '$userid', '$inreplyto', '$text', '$url', '$timestamp' )" );
 			if( mysql_errno() != 0 )
-				$result = mysql_query( "UPDATE statuses SET text='$text', replyto_id='$inreplyto', timestamp='$timestamp' WHERE user_id='$userid' AND url='$url'" );
+				$result = mysql_query( "UPDATE statuses SET text='$text', replytourl='$inreplyto', timestamp='$timestamp' WHERE user_id='$userid' AND url='$url'" );
 			
 			print_r( mysql_error() );
 			

@@ -11,7 +11,7 @@
 				return;	// Don't allow installation!
 		}
 		
-		$result = mysql_query( "CREATE TABLE statuses ( id int NOT NULL PRIMARY KEY AUTO_INCREMENT, user_id int NOT NULL, replyto_id int, text varchar(256), url varchar(140) UNIQUE, timestamp int NOT NULL )");
+		$result = mysql_query( "CREATE TABLE statuses ( id int NOT NULL PRIMARY KEY AUTO_INCREMENT, user_id int NOT NULL, replytourl varchar(140), text varchar(256), url varchar(140) UNIQUE, timestamp int NOT NULL )");
 		print_r( mysql_error() );
 
 		$result = mysql_query( "CREATE TABLE users ( id int NOT NULL PRIMARY KEY AUTO_INCREMENT, shortname varchar(80) NOT NULL UNIQUE, fullname varchar(80), location varchar(80), homepage varchar(140), biography varchar(140), avatarurl varchar(140), passwordhash varchar(140), email varchar(80), feedurl varchar(140), isAdmin int )");
