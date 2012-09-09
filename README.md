@@ -24,7 +24,7 @@ To follow someone, use the Follow link *on your server* and type in their domain
 (without the "http://"!) (It will then know to look for an RSS feed at that domain's root,
 named microblog.rss). After that, be sure to immediately click "Import new messages
 for this user". This will not be necessary in the future, but is currently required every
-time you want to see new Twits from an account you follow.
+time you want to see new statuses from an account you follow.
 You currently have to go to each user's page on *your* server to fetch their newest
 statuses. If you forget this the first time, you can't click the user's name for that.\
 You may have to manually type in a URL like
