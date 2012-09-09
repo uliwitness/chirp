@@ -1,4 +1,6 @@
 <?php
+		global $gPageTitle;
+		
 		$result = mysql_query( "SELECT id FROM users" );
 		if( mysql_errno() == 0 )	// Already have a users table?
 		{
