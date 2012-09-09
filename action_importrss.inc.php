@@ -69,6 +69,35 @@
 	$reader->close();
 	
 	$channel = $feed['rss']['channel'];
+	$fullname = mysql_real_escape_string($channel['title']);
+	$bio = mysql_real_escape_string($channel['description']);
+	if( isset($channel['image']) && isset($channel['image']['url']) )
+	{
+		$avatarurl = $channel['image']['url'];
+		$avatarurl = str_replace("<","",$avatarurl);
+		$avatarurl = str_replace(">","",$avatarurl);
+		$avatarurl = str_replace("\"","",$avatarurl);
+		$avatarurl = str_replace("\r","",$avatarurl);
+		$avatarurl = str_replace("\n","",$avatarurl);
+		$avatarurl = mysql_real_escape_string($avatarurl);
+	}
+	else
+		$avatarurl = "";
+	if( isset($channel['link']) )
+	{
+		$homepage = $channel['link'];
+		$homepage = str_replace("<","",$homepage);
+		$homepage = str_replace(">","",$homepage);
+		$homepage = str_replace("\"","",$homepage);
+		$homepage = str_replace("\r","",$homepage);
+		$homepage = str_replace("\n","",$homepage);
+		$homepage = mysql_real_escape_string($homepage);
+	}
+	else
+		$homepage = "";
+	$result = mysql_query( "UPDATE users SET fullname='$fullname', biography='$bio', avatarurl='$avatarurl' homepage='$homepage' WHERE userid='$userid'" );
+	print_r( mysql_error() );
+	
 	$x = 1;
 	$itemName = 'item';
 	while( true )
@@ -80,7 +109,7 @@
 		$url = mysql_real_escape_string($channel[$itemName]['link']);
 		$timestamp = strtotime($channel[$itemName]['pubDate']);
 		$inreplyto = 0;
-		$result = mysql_query ("INSERT INTO statuses VALUES ( NULL, '$userid', '$inreplyto', '$text', '$url', '$timestamp' )");
+		$result = mysql_query( "INSERT INTO statuses VALUES ( NULL, '$userid', '$inreplyto', '$text', '$url', '$timestamp' )" );
 		if( mysql_errno() != 0 )
 			$result = mysql_query( "UPDATE statuses SET text='$text', inreplyto='$inreplyto', timestamp='$timestamp' WHERE userid='$userid' AND url='$url'" );
 		

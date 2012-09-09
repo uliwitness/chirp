@@ -20,7 +20,7 @@
 		$location = mysql_real_escape_string($_REQUEST['location']);
 		$homepage = mysql_real_escape_string($_REQUEST['homepage']);
 		$biography = mysql_real_escape_string($_REQUEST['biography']);
-		$avatarurl = mysql_real_escape_string($_REQUEST['avatarurl']);
+		$avatarurl = mysql_real_escape_string('http://'.$_SERVER['HTTP_HOST'].'/avatars/'.$_REQUEST['avatarurl']);
 		$passwordhash = mysql_real_escape_string(crypt($_REQUEST['password'],"hellacomplicated"));
 		$email = mysql_real_escape_string($_REQUEST['email']);
 		$result = mysql_query ("INSERT INTO users VALUES ( NULL, '$shortname', '$fullname', '$location', '$homepage', '$biography', '$avatarurl', '$passwordhash', '$email', '', 1 )");

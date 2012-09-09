@@ -1,7 +1,9 @@
 <?php
-		$userid = http_authenticated_userid();
+		$userid = http_authenticated_userid(true);
 		if( $userid === false )
+		{
 			return;
+		}
 
 		$text = mysql_real_escape_string($_REQUEST['text']);
 		$inreplyto = mysql_real_escape_string($_REQUEST['inreplyto']);

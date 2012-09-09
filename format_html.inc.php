@@ -18,7 +18,7 @@
 		$str .= "<div class=\"actions\">";
 		$str .= "<a href=\"index.php?action=home\">Home</a><br />";
 		$str .= "<a href=\"$feedurl\">RSS Feed</a><br />";
-		$str .= "<a href=\"index.php?action=addfeed&shortname=zathrasdeblog&fullname=Zathras.de%20Blog&avatarurl=ElectricSheep.png&feedurl=http://orangejuiceliberationfront.com/feed/\">Add external user (Feed) Test</a><br />";
+		$str .= "<a href=\"index.php?action=follow\">Follow</a><br />";
 		if( isset($_REQUEST['shortname']) )
 		{
 			$username = rawurlencode($_REQUEST['shortname']);
@@ -37,7 +37,7 @@
 		$shortname = $row['shortname'];
 		$fullname = $row['fullname'];
 		$avatarurl = $row['avatarurl'];
-		return "<div class=\"tweet\"><a href=\"index.php?shortname=".urlencode($shortname)."\" class=\"statussender\">".((strlen($avatarurl) > 0) ? "<img src=\"avatars/".rawurlencode($avatarurl)."\" width=\"48\" height=\"48\" align=\"left\" style=\"padding-right: 8pt;\" />" : "<div class=\"avatarplaceholder\"></div>").htmlentities($fullname)."</a> ".htmlentities($statusdict['text'])."</div><br/>";
+		return "<div class=\"tweet\"><a href=\"index.php?shortname=".urlencode($shortname)."\" class=\"statussender\">".((strlen($avatarurl) > 0) ? "<img src=\"".$avatarurl."\" width=\"48\" height=\"48\" align=\"left\" style=\"padding-right: 8pt;\" />" : "<div class=\"avatarplaceholder\"></div>").htmlentities($fullname)."</a> ".htmlentities($statusdict['text'])."</div><br/>";
 	}
 
 	function make_footer()

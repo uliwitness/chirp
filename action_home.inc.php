@@ -1,16 +1,19 @@
 <?php
-	if( !isset($_REQUEST['shortname']) )
-		$gPageTitle = "All Statuses";
-	else
-		$gPageTitle = $_REQUEST['shortname']."'s Statuses";
+	global $gPageTitle;
 	
+
 	if( !isset($_REQUEST['shortname']) )
+	{
 		$result = mysql_query ("SELECT * FROM statuses ORDER BY timestamp DESC");
+		$gPageTitle = "All Statuses";
+	}
 	else
 	{
-		$userid = userid_from_shortname($_REQUEST['shortname']);
+		$userid = userid_from_shortname( $_REQUEST['shortname'] );
+		$userinfo = userinfo_from_userid( $userid );
+		$gPageTitle = $userinfo['fullname'];
 		$result = mysql_query ("SELECT * FROM statuses WHERE user_id='$userid' ORDER BY timestamp DESC");
-	}
+	}	
 	
 	global $gNewestTimestamp;
 	
