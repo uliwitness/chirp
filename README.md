@@ -16,16 +16,19 @@ create your admin user.
 Usage
 -----
 
-The idea is that you install this on one domain or sub-domain, MUST BE AT ROOT LEVEL
-so you get a short URL. This is then equivalent to one "Twitter account" for one person,
-and will import statuses from other people whose RSS feeds you subscribe to ("follow").
+You MUST install this on one domain or sub-domain at root level. This is then equivalent
+to one "Twitter account" for one person, and will import statuses from other people whose
+RSS feeds you subscribe to ("follow").
 
 To follow someone, use the Follow link *on your server* and type in their domain name
-(without the "http://"!). After that, be sure to immediately click "Import new messages
-for this user". This will not be necessary in the future, but is currently manual.
+(without the "http://"!) (It will then know to look for an RSS feed at that domain's root,
+named microblog.rss). After that, be sure to immediately click "Import new messages
+for this user". This will not be necessary in the future, but is currently required every
+time you want to see new Twits from an account you follow.
 You currently have to go to each user's page on *your* server to fetch their newest
-statuses. If you forget this, you may have to manually type in a URL like
-http://yourserver.com/index.php?action=importrss&shortname=otherusersdomain
+statuses. If you forget this the first time, you can't click the user's name for that.\
+You may have to manually type in a URL like
+http://yourserver.com/index.php?action=importrss&shortname=otherusersdomain.com
 
 To set up your own avatar icon, copy a square image into the "avatars" folder on your
 server before you install. Currently you can't change the avatar and there's no interface
