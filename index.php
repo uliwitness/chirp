@@ -88,6 +88,8 @@
 	
 	global $gPageTitle;
 	
+	date_default_timezone_set( "GMT" );
+	
 	$settings = array();
 	$ini_lines = file("settings.ini");
 	for( $x = 0; $x < sizeof($ini_lines); $x++ )
