@@ -20,9 +20,9 @@ to one "Twitter account" for one person, and will import statuses from other peo
 RSS feeds you subscribe to ("follow").
 
 To follow someone, use the Follow link *on your server* and type in their domain name
-(without the "http://"!) (It will then know to look for an RSS feed at that domain's root,
-named microblog.rss). After that, be sure to immediately click "Refresh Timeline" so you
-see new statuses from any accounts you follow.
+(without the "http://"!) (It will then know to look for an RSS feed on that domain, at
+/.well-known/microblog.rss). After that, be sure to immediately click "Refresh Timeline"
+so you see new statuses from any accounts you follow.
 
 To set up your own avatar icon, copy a square image into the "avatars" folder on your
 server before you install. Currently you can't change the avatar and there's no interface
