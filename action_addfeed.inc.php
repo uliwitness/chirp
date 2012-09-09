@@ -13,4 +13,8 @@
 		$result = mysql_query ("INSERT INTO users VALUES ( NULL, '$shortname', '$fullname', '$location', '$homepage', '$biography', '$avatarurl', '', '', '$feedurl', 0 )");
 		
 		print_r( mysql_error() );
+		
+		$gPageTitle = "Feed Added";
+		
+		echo make_header() . "Feed added." . make_footer();
 ?>

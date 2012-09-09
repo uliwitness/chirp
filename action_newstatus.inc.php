@@ -14,4 +14,6 @@
 		$url .= $id;
 		$result = mysql_query( "UPDATE statuses SET url='$url' WHERE id='$id'" );
 		print_r( mysql_error() );
+		
+		require( "action_home.inc.php" );
 ?>

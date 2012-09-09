@@ -26,10 +26,6 @@
 		$result = mysql_query ("INSERT INTO users VALUES ( NULL, '$shortname', '$fullname', '$location', '$homepage', '$biography', '$avatarurl', '$passwordhash', '$email', '', 1 )");
 		
 		$gPageTitle = "Installation Complete";
-
-		print_header();
-
-		echo "Installation finished.";	
 		
-		print_footer();
+		echo make_header() . "Installation finished." . make_footer();
 ?>

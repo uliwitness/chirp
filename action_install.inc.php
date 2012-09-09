@@ -7,10 +7,8 @@
 		}
 
 		$gPageTitle = "Install";
-		
-		print_header();
-		
-		echo '<form action="index.php" method="POST">
+				
+		$str = '<form action="index.php" method="POST">
 		<input type="hidden" name="action" value="finish_install" />
 		To set up Chirp, please create the first administrator user:<br />
 		<b>Short Name:</b> <input type="text" name="shortname" /><br />
@@ -26,13 +24,13 @@
 		{
 			if( $currfile[0] == '.' )
 				continue;
-			echo "\t<option value=\"$currfile\">".htmlentities($currfile)."</option>\n";
+			$str .= "\t<option value=\"$currfile\">".htmlentities($currfile)."</option>\n";
 		}
-		echo '</select><br/>
+		$str .= '</select><br/>
 		<b>E-Mail:</b> <input type="text" name="email" /><br />
 		<b>Password:</b> <input type="password" name="password" /><br />
 		<input type="submit" value="Submit" />
 		</form>';
 		
-		print_footer();
+		echo make_header() . $str . make_footer();
 ?>

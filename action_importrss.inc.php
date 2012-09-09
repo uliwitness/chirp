@@ -76,8 +76,8 @@
 		if( !isset($channel[$itemName]) )
 			break;
 		
-		$text = $channel[$itemName]['description'];
-		$url = $channel[$itemName]['link'];
+		$text = mysql_real_escape_string(html_entity_decode($channel[$itemName]['description']));
+		$url = mysql_real_escape_string($channel[$itemName]['link']);
 		$timestamp = strtotime($channel[$itemName]['pubDate']);
 		$inreplyto = 0;
 		$result = mysql_query ("INSERT INTO statuses VALUES ( NULL, '$userid', '$inreplyto', '$text', '$url', '$timestamp' )");
@@ -90,4 +90,7 @@
 		$itemName = 'item'.$x;
 	}
 
+	$gPageTitle = "Statuses imported";
+	
+	echo make_header() . "$x items added/updated." . make_footer();
 ?>

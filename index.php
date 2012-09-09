@@ -120,7 +120,7 @@
 			$action = 'install';
 		else if( mysql_num_rows( $result ) == 0 )	// Or there are no users in it?
 			$action = 'install';
-		}
+	}
 	
 	require("format_$format.inc.php");
 	require("action_$action.inc.php");
