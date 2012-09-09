@@ -18,6 +18,10 @@
 		$result = mysql_query( "CREATE TABLE users ( id int NOT NULL PRIMARY KEY AUTO_INCREMENT, shortname varchar(80) NOT NULL UNIQUE, fullname varchar(80), location varchar(80), homepage varchar(140), biography varchar(140), avatarurl varchar(140), passwordhash varchar(140), email varchar(80), feedurl varchar(140), isAdmin int )");
 		
 		print_r( mysql_error() );
+
+		$result = mysql_query( "CREATE TABLE follows ( follower int NOT NULL, followee int NOT NULL )");
+		
+		print_r( mysql_error() );
 		
 		// Create the first admin user:
 		$shortname = mysql_real_escape_string($_REQUEST['shortname']);

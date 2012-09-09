@@ -16,9 +16,11 @@
 		$str .= "<link rel=\"alternate\" type=\"application/rss+xml\" title=\"".htmlentities($gPageTitle)."\" href=\"$feedurl\" />\n";
 		$str .= "</head>\n<body>";
 		$str .= "<div class=\"actions\">";
-		$str .= "<a href=\"index.php?action=home\">Home</a><br />";
+		$str .= "<a href=\"index.php?action=timeline\">My Timeline</a><br />";
+		$str .= "<a href=\"index.php?action=home\">Global Timeline</a><br />";
 		$str .= "<a href=\"$feedurl\">RSS Feed</a><br />";
 		$str .= "<a href=\"index.php?action=follow\">Follow</a><br />";
+		$str .= "<a href=\"index.php?action=unfollow\">Unfollow</a><br />";
 		$str .= "<a href=\"index.php?action=importrss\">Refresh Timeline</a><br />";
 		$str .= "</div>";
 		$str .= "<div class=\"postfield\"><form action=\"index.php\" method=\"POST\">What are you doing?<br /><input type=\"text\" name=\"text\" size=\"60\" /><input type=\"hidden\" name=\"action\" value=\"newstatus\"></form></div>";

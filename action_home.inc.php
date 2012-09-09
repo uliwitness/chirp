@@ -1,19 +1,29 @@
 <?php
 	global $gPageTitle;
-	
 
-	if( !isset($_REQUEST['shortname']) )
+	$querystr = "SELECT * FROM statuses";
+	$gPageTitle = "All Statuses";
+	if( strcmp($_REQUEST['action'],"timeline") == 0 )
 	{
-		$result = mysql_query ("SELECT * FROM statuses ORDER BY timestamp DESC");
-		$gPageTitle = "All Statuses";
+		$userid = http_authenticated_userid(true);
+		$userinfo = userinfo_from_userid( $userid );
+		$gPageTitle = $userinfo['fullname']."'s Timeline";
+		$querystr = "SELECT * FROM statuses WHERE user_id IN ( '$userid'";
+		$result = mysql_query( "SELECT followee FROM follows WHERE follower='$userid'" );
+		print_r( mysql_error() );
+		while( ($row = mysql_fetch_assoc($result)) !== false )
+			$querystr .= ", '".$row['followee']."'";
+		$querystr .= " )";
 	}
-	else
+	else if( isset($_REQUEST['shortname']) )
 	{
 		$userid = userid_from_shortname( $_REQUEST['shortname'] );
 		$userinfo = userinfo_from_userid( $userid );
 		$gPageTitle = $userinfo['fullname'];
-		$result = mysql_query ("SELECT * FROM statuses WHERE user_id='$userid' ORDER BY timestamp DESC");
-	}	
+		$querystr = "SELECT * FROM statuses WHERE user_id='$userid'";
+	}
+	$result = mysql_query( $querystr." ORDER BY timestamp DESC" );
+	print_r( mysql_error() );
 	
 	global $gNewestTimestamp;
 	
@@ -25,7 +35,6 @@
 		if( $row['timestamp'] > $gNewestTimestamp )
 			$gNewestTimestamp = $row['timestamp'];
 	}
-	print_r( mysql_error() );
 	
 	echo make_header() . $str . make_footer();
 ?>
