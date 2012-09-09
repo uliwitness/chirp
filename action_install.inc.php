@@ -7,11 +7,11 @@
 		}
 
 		$gPageTitle = "Install";
-				
+		
 		$str = '<form action="index.php" method="POST">
 		<input type="hidden" name="action" value="finish_install" />
 		To set up Chirp, please create the first administrator user:<br />
-		<b>Short Name:</b> <input type="text" name="shortname" /><br />
+		<b>Short Name:</b> '.htmlentities($_SERVER['HTTP_HOST']).'<input type="hidden" name="shortname" value="'.$_SERVER['HTTP_HOST'].'" /><br />
 		<b>Full Name:</b> <input type="text" name="fullname" /><br />
 		<b>Location:</b> <input type="text" name="location" /><br />
 		<b>Homepage:</b> <input type="text" name="homepage" /><br />
