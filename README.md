@@ -25,8 +25,8 @@ To follow someone, use the Follow link *on your server* and type in their domain
 so you see new statuses from any accounts you follow.
 
 To set up your own avatar icon, copy a square image into the "avatars" folder on your
-server before you install. Currently you can't change the avatar and there's no interface
-for uploading images. Will come in the future.
+server, then you can select it in your profile. Currently there's no interface
+for uploading images.
 
 
 What's this good for?
