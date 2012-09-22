@@ -1,14 +1,32 @@
 <?php
-		global $gPageTitle;
+		global $gPageTitle, $gSettings;
 
 		if( strlen($_REQUEST['shortname']) == 0 )
-			return;
-		
-		$result = mysql_query( "SELECT id FROM users" );
-		if( mysql_errno() == 0 )	// Already have a users table?
 		{
-			if( mysql_num_rows( $result ) != 0 )	// And there are users in it?
-				return;	// Don't allow installation!
+			echo "Need short name.";
+			return;
+		}
+		
+		if( strcmp($gSettings['dbserver'],"mysql.example.com") != 0 )
+		{
+			$result = mysql_query( "SELECT id FROM users" );
+			if( mysql_errno() == 0 )	// Already have a users table?
+			{
+				if( mysql_num_rows( $result ) != 0 )	// And there are users in it?
+					return;	// Don't allow installation!
+			}
+		}
+		
+		$settingspath = dirname($_SERVER['SCRIPT_FILENAME'])."/settings.ini";
+		echo $settingspath;
+		$fd = fopen( $settingspath, "w" );
+		fwrite( $fd, "dbserver=".$_REQUEST['mysqlserver']."\ndbuser=".$_REQUEST['mysqluser']."\ndbpassword=".$_REQUEST['mysqlpassword']."\ndbname=".$_REQUEST['mysqldatabase']."\n" );
+		fclose( $fd );
+		
+		if( !open_database() )
+		{
+			echo "Failed to open database.";
+			return;
 		}
 		
 		$result = mysql_query( "CREATE TABLE statuses ( id int NOT NULL PRIMARY KEY AUTO_INCREMENT, user_id int NOT NULL, replytourl varchar(140), text varchar(256), url varchar(140) UNIQUE, timestamp int NOT NULL )");

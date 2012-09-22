@@ -10,30 +10,26 @@
 	
 	if( !file_exists($chirpdir."/.git") )
 	{
+		require( $chirpdir."/begininstall.inc.php" );
+
 		mkdir( $chirpdir );
 		$cmd = "git clone 'https://github.com/uliwitness/chirp.git' '$chirpdir' >$installogfile 2>&1";
 		
 		$success = 0;
 		system($cmd,$success);
 		
-		if( $success != 0 )
-			echo "<html><head><title>Download Failed</title></head><body><h1>Download Failed</h1><pre>".htmlentities(file_get_contents($installogfile))."</pre></body></html>";
-		else
-		{
-			require( $chirpdir."/begininstall.inc.php" );
-				
-			finish_update($success,file_get_contents($installogfile),$chirpdir);
-		}
+		finish_update($success,file_get_contents($installogfile),$chirpdir);
 	}
 	else
 	{
+		require( $chirpdir."/upgrade.inc.php" );
+		
 		chdir($chirpdir);
 		$cmd = "git pull . 'remotes/origin/master' >$installogfile 2>&1";
 		
 		$success = 0;
 		system($cmd,$success);
 		
-		require( $chirpdir."/upgrade.inc.php" );
 		finish_update($success,file_get_contents($installogfile),$chirpdir);
 	}
 	

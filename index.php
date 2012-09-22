@@ -6,9 +6,8 @@
 	
 	date_default_timezone_set( "GMT" );
 	
-	if( !open_database() )
-		return;
-	
+	$haveDatabase = open_database();
+		
 	// Determine what format to output in:
 	if( !isset($_REQUEST['format']) )
 		$format = "html";
@@ -30,11 +29,16 @@
 	// Have we been set up yet?
 	if( strcmp($action,"install") != 0 && strcmp($action,"finish_install") != 0 )
 	{
-		$result = mysql_query( "SELECT id FROM users" );
-		if( mysql_errno() != 0 )	// Don't have a users table?	// +++ What if DB server is down? Wouldn't want to install again!
-			$action = 'install';
-		else if( mysql_num_rows( $result ) == 0 )	// Or there are no users in it?
-			$action = 'install';
+		if( $haveDatabase )
+		{
+			$result = mysql_query( "SELECT id FROM users" );
+			if( mysql_errno() != 0 )	// Don't have a users table?	// +++ What if DB server is down? Wouldn't want to install again!
+				$action = 'install';
+			else if( mysql_num_rows( $result ) == 0 )	// Or there are no users in it?
+				$action = 'install';
+		}
+		else
+			$action = "install";
 	}
 	
 	require("format_$format.inc.php");

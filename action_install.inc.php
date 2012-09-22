@@ -1,16 +1,27 @@
 <?php
-		$result = mysql_query( "SELECT id FROM users" );
-		if( mysql_errno() == 0 )	// Already have a users table?
+		global $gSettings;
+		
+		if( strcmp($gSettings['dbserver'],"mysql.example.com") != 0 )
 		{
-			if( mysql_num_rows( $result ) != 0 )	// And there are users in it?
-				return;	// Don't allow installation!
+			$result = mysql_query( "SELECT id FROM users" );
+			if( mysql_errno() == 0 )	// Already have a users table?
+			{
+				if( mysql_num_rows( $result ) != 0 )	// And there are users in it?
+					return;	// Don't allow installation!
+			}
 		}
 
 		$gPageTitle = "Install";
 		
-		$str = '<form action="index.php" method="POST">
+		$str = '
+		<form action="index.php" method="POST">
 		<input type="hidden" name="action" value="finish_install" />
-		To set up Chirp, please create the first administrator user:<br />
+		To set up Chirp, please specify an existing MySQL database to use:<br/>
+		<b>MySQL Server:</b> <input type="text" name="mysqlserver" /><br />
+		<b>Database Name:</b> <input type="text" name="mysqldatabase" /><br />
+		<b>Database User:</b> <input type="text" name="mysqluser" /><br />
+		<b>Database Password:</b> <input type="password" name="mysqlpassword" /><br />';
+		$str .= 'Please create the first administrator user:<br />
 		<b>Short Name:</b> '.htmlentities($_SERVER['HTTP_HOST']).'<input type="hidden" name="shortname" value="'.$_SERVER['HTTP_HOST'].'" /><br />
 		<b>Full Name:</b> <input type="text" name="fullname" /><br />
 		<b>Location:</b> <input type="text" name="location" /><br />

@@ -1,23 +1,37 @@
 <?php
-	function open_database()
+	function load_settings()
 	{
-		$settings = array();
+		global $gSettings;
+		
+		$gSettings = array();
 		$ini_lines = file("settings.ini");
 		for( $x = 0; $x < sizeof($ini_lines); $x++ )
 		{
 			$parts = explode( "=", $ini_lines[$x], 2 );
-			$settings[$parts[0]] = trim($parts[1]);
+			$gSettings[$parts[0]] = trim($parts[1]);
 		}
-		if( !isset($settings['dbserver']) || !isset($settings['dbuser'])
-			|| !isset($settings['dbpassword']) || !isset($settings['dbname']) )
+		if( !isset($gSettings['dbserver']) || !isset($gSettings['dbuser'])
+			|| !isset($gSettings['dbpassword']) || !isset($gSettings['dbname']) )
 		{
 			echo "<b>Setup error. No/invalid ini file.</b>";
 			return false;
 		}
+		if( strcmp($gSettings['dbserver'], "mysql.example.com") == 0 )	// Still have dummy info in .ini file?
+			return false;
 		
-		mysql_connect( $settings['dbserver'], $settings['dbuser'], $settings['dbpassword'] );
+		return true;
+	}
+
+	function open_database()
+	{
+		global $gSettings;
+
+		if( !load_settings() )
+			return false;
 		
-		mysql_select_db( $settings['dbname'] );
+		mysql_connect( $gSettings['dbserver'], $gSettings['dbuser'], $gSettings['dbpassword'] );
+		
+		mysql_select_db( $gSettings['dbname'] );
 		
 		mysql_set_charset("utf8");
 		
