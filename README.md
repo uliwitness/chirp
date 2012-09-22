@@ -7,10 +7,11 @@ An RSS-based, distributed Twitter clone. (server-side, not client-side)
 Installation
 ------------
 
+Create a MySQL database and make note of its server domain name, username, password and database name.
 Upload the chirp_install.php file to your server, so it resides at the root of a domain or sub-domain.
 Run it, and it will download Chirp into a "chirp" subfolder and create a .htaccess file for you, then
-let you move on to setting up your database and an admin user. Run the chirp_install.php file again
-whenever you wish to update to the newest version of Chirp.
+let you move on to setting up your database and a username & password for using Chirp.
+Run the chirp_install.php file again whenever you wish to update to the newest version of Chirp.
 
 
 Usage
