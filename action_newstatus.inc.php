@@ -16,12 +16,12 @@
 			
 			$inreplyto = mysql_real_escape_string($row['url']);
 			if( strlen($inreplyto) == 0 )
-				$inreplyto = mysql_real_escape_string("http://".$_SERVER['HTTP_HOST']."/index.php?statusid=".$_REQUEST['statusid']);
+				$inreplyto = mysql_real_escape_string("http://".$_SERVER['HTTP_HOST']."/chirp/index.php?statusid=".$_REQUEST['statusid']);
 		}
 		else
 			$inreplyto = '';
 		$time = time();
-		$url = "http://".$_SERVER['HTTP_HOST']."/index.php?statusid=";
+		$url = "http://".$_SERVER['HTTP_HOST']."/chirp/index.php?statusid=";
 		$result = mysql_query( "INSERT INTO statuses VALUES ( NULL, '$userid', '$inreplyto', '$text', '$url', $time )" );
 		$id = mysql_insert_id();
 		$url .= $id;
