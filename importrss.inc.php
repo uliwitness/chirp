@@ -7,7 +7,11 @@
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
 		$data = curl_exec($ch);
+		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		curl_close($ch);
+		
+		if( $httpCode == 404 )
+			return "";
 		
 		return $data;
 	}
@@ -71,12 +75,16 @@
 	function import_external_user_tweets( $userid )
 	{
 		$userinfo = userinfo_from_userid( $userid );
-		if( strlen($userinfo['feedurl']) == 0 )
+		if( strlen($userinfo['feedurl']) == 0 || $userInfo['isAdmin'] == 1 )
 			return false;	// Don't need to import from one of our local users.
 		
 		$xmldata = download_data( $userinfo['feedurl'] );
+		if( strlen($xmldata) == 0 )
+			return false;
+		
 		$reader = new XMLReader;
-		$reader->xml( $xmldata );
+		if( !$reader->xml( $xmldata ) )
+			return false;
 		
 		$feed = parse_feed( $reader );
 		
@@ -119,10 +127,18 @@
 			if( !isset($channel[$itemName]) )
 				break;
 			
-			$text = mysql_real_escape_string(html_entity_decode($channel[$itemName]['description']));
+			$text = html_entity_decode($channel[$itemName]['description']);
+			if( preg_match( "/^<a href=\"(.+?)\" rel=\"prev\">@([-A-Za-z.]+)<\\/a>/", $text, $matches ) == 1)
+			{
+				$text = '@'.$matches[2].substr( $text, strlen($matches[0]) );
+				$inreplyto = mysql_real_escape_string($matches[1]);
+			}
+			else
+				$inreplyto = '';
+			$text = mysql_real_escape_string($text);
+			
 			$url = mysql_real_escape_string($channel[$itemName]['link']);
 			$timestamp = strtotime($channel[$itemName]['pubDate']);
-			$inreplyto = '';
 			$result = mysql_query( "INSERT INTO statuses VALUES ( NULL, '$userid', '$inreplyto', '$text', '$url', '$timestamp' )" );
 			if( mysql_errno() != 0 )
 				$result = mysql_query( "UPDATE statuses SET text='$text', replytourl='$inreplyto', timestamp='$timestamp' WHERE user_id='$userid' AND url='$url'" );
