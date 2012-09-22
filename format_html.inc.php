@@ -5,7 +5,7 @@
 		
 		$str = "<html>\n<head>\n<title>".htmlentities($gPageTitle)."</title>\n";
 		$str .= "<link rel=\"stylesheet\" href=\"styles.css\" type=\"text/css\" />\n";
-		$feedurl = "feed://".$_SERVER['HTTP_HOST']."/index.php?format=rss";
+		$feedurl = "feed://".$_SERVER['HTTP_HOST']."/chirp/index.php?format=rss";
 		if( isset($_REQUEST['shortname']) )
 		{
 			$str .= "<link rel=\"alternate\" type=\"application/rss+xml\" title=\"All Statuses\" href=\"$feedurl\" />\n";

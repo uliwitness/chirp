@@ -7,17 +7,18 @@ An RSS-based, distributed Twitter clone. (server-side, not client-side)
 Installation
 ------------
 
-Upload the contents of this folder to your server, so it resides at the root of a domain
-or sub-domain. Edit the settings.ini file to contain login information to a MySQL database.
-Then bring up the site in a browser and you'll get a form to create your admin user.
+Upload the chirp_install.php file to your server, so it resides at the root of a domain or sub-domain.
+Run it, and it will download Chirp into a "chirp" subfolder and create a .htaccess file for you, then
+let you move on to setting up your database and an admin user. Run the chirp_install.php file again
+whenever you wish to update to the newest version of Chirp.
 
 
 Usage
 -----
 
-You MUST install this on one domain or sub-domain at root level. This is then equivalent
-to one "Twitter account" for one person, and will import statuses from other people whose
-RSS feeds you subscribe to ("follow").
+You MUST install this on one domain or sub-domain at root level (the domain name will be
+your user name). This is then equivalent to one "Twitter account" for one person, and will
+import statuses from other people whose RSS feeds you subscribe to ("follow").
 
 To follow someone, use the Follow link *on your server* and type in their domain name
 (without the "http://"!) (It will then know to look for an RSS feed on that domain, at
@@ -33,7 +34,7 @@ What's this good for?
 ---------------------
 
 The idea is to lay down a simple, open exchange format for microblogs like App.net
-and Twitter (RSS) that can easily be load-balanced via Akamai or similar services.
+and Twitter, RSS, that can easily be load-balanced via Akamai or similar services.
 Everyone who can put an RSS file on a server can have a microblog. Everyone can
 follow them, whether they host it themselves or have one at Twitter.
 
