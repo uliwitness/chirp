@@ -7,7 +7,7 @@
 		
 		if( open_database() === true )
 		{
-			$result = mysql_query( "SELECT * FROM statuses WHERE * LIMIT 1" );
+			$result = mysql_query( "SELECT * FROM statuses LIMIT 1" );
 			$row = mysql_fetch_assoc($result);
 		}
 		else
