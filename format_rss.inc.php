@@ -27,6 +27,13 @@
 	{
 		$text = htmlentities($statusdict['text']);
 		$id = $statusdict['id'];
+				
+		$userid = $statusdict['user_id'];
+		$userinfo = userinfo_from_userid( $userid );
+		if( isset($statusdict['replytourl']) && strlen($statusdict['replytourl']) > 0 )
+		{
+			$text = preg_replace( "/^@([-A-Za-z.\pL]+)/", "&lt;a href=\"".$statusdict['replytourl']."\" rel=\"prev\"&gt;@$1&lt;/a&gt;", $text );
+		}
 		return '	<item>
 		<title></title>
 		<description>'.$text.'</description>
