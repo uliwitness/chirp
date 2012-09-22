@@ -9,7 +9,7 @@
 		$userinfo = userinfo_from_userid( $userid );
 		
 		$str = '<?xml version="1.0" encoding="UTF-8" ?>
-<rss version="2.0">
+<rss version="2.0" xmlns:microblog="http://microblog.reallysimple.org/">
 <channel>
 	<title>'.htmlentities($gPageTitle).'</title>
 	<description>'.htmlentities($userinfo['biography']).'</description>
@@ -18,7 +18,10 @@
 	<pubDate>'.date('D, d M Y H:i:s O',$gNewestTimestamp).'</pubDate>
 ';
 		if( isset($userinfo['avatarurl']) && strlen($userinfo['avatarurl']) > 0 )
+		{
 			$str .= "\t<image>\n\t\t<url>".htmlentities($userinfo['avatarurl'])."</url>\n\t\t<link>".htmlentities($userinfo['homepage'])."</link>\n\t\t<title>".htmlentities($userinfo['fullname'])."</title>\n\t</image>\n";
+			$str .= "<microblog:avatar>".htmlentities($userinfo['avatarurl'])."<microblog:avatar>\n";
+		}
 		
 		return $str;
 	}
@@ -35,7 +38,6 @@
 			$text = preg_replace( "/^@([-A-Za-z.\pL]+)/", "&lt;a href=\"".$statusdict['replytourl']."\" rel=\"prev\"&gt;@$1&lt;/a&gt;", $text );
 		}
 		return '	<item>
-		<title></title>
 		<description>'.$text.'</description>
 		<link>'.$statusdict['url'].'</link>
 		<guid isPermaLink="false">'.$id.'</guid>
