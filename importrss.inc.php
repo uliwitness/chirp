@@ -131,7 +131,7 @@
 			if( preg_match( "/^<a href=\"(.+?)\" rel=\"prev\">@([-A-Za-z.]+)<\\/a>/", $text, $matches ) == 1)
 			{
 				$text = '@'.$matches[2].substr( $text, strlen($matches[0]) );
-				$inreplyto = mysql_real_escape_string(str_replace("\"", "", str_replace("\r", "", str_replace("\n", "", str_replace(">", "", str_replace("<", "", $matches[1]))))));
+				$inreplyto = mysql_real_escape_string($matches[1]);
 			}
 			else
 				$inreplyto = '';
