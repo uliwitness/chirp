@@ -93,7 +93,17 @@
 		$channel = $feed['rss']['channel'];
 		$fullname = mysql_real_escape_string($channel['title']);
 		$bio = mysql_real_escape_string($channel['description']);
-		if( isset($channel['image']) && isset($channel['image']['url']) )
+		if( isset($channel['microblog:avatar']) )
+		{
+			$avatarurl = $channel['microblog:avatar'];
+			$avatarurl = str_replace("<","",$avatarurl);
+			$avatarurl = str_replace(">","",$avatarurl);
+			$avatarurl = str_replace("\"","",$avatarurl);
+			$avatarurl = str_replace("\r","",$avatarurl);
+			$avatarurl = str_replace("\n","",$avatarurl);
+			$avatarurl = mysql_real_escape_string($avatarurl);
+		}
+		else if( isset($channel['image']) && isset($channel['image']['url']) )
 		{
 			$avatarurl = $channel['image']['url'];
 			$avatarurl = str_replace("<","",$avatarurl);
@@ -131,17 +141,24 @@
 			if( preg_match( "/^<a href=\"(.+?)\" rel=\"prev\">@([-A-Za-z.]+)<\\/a>/", $text, $matches ) == 1)
 			{
 				$text = '@'.$matches[2].substr( $text, strlen($matches[0]) );
-				$inreplyto = mysql_real_escape_string($matches[1]);
+				$inreplyto = mysql_real_escape_string(str_replace("\"", "", str_replace("\r", "", str_replace("\n", "", str_replace(">", "", str_replace("<", "", $matches[1]))))));
 			}
 			else
 				$inreplyto = '';
+			if( preg_match( "/^<a href=\"(.+?)\" rel=\"original\">R[TP] ([-A-Za-z.]+)<\\/a>/", $text, $matches ) == 1)
+			{
+				$text = '@'.$matches[2].substr( $text, strlen($matches[0]) );
+				$original = mysql_real_escape_string(str_replace("\"", "", str_replace("\r", "", str_replace("\n", "", str_replace(">", "", str_replace("<", "", $matches[1]))))));
+			}
+			else
+				$original = '';
 			$text = mysql_real_escape_string($text);
 			
 			$url = mysql_real_escape_string($channel[$itemName]['link']);
 			$timestamp = strtotime($channel[$itemName]['pubDate']);
-			$result = mysql_query( "INSERT INTO statuses VALUES ( NULL, '$userid', '$inreplyto', '$text', '$url', '$timestamp' )" );
+			$result = mysql_query( "INSERT INTO statuses VALUES ( NULL, '$userid', '$inreplyto', '$text', '$url', '$timestamp', '$original' )" );
 			if( mysql_errno() != 0 )
-				$result = mysql_query( "UPDATE statuses SET text='$text', replytourl='$inreplyto', timestamp='$timestamp' WHERE user_id='$userid' AND url='$url'" );
+				$result = mysql_query( "UPDATE statuses SET text='$text', replytourl='$inreplyto', timestamp='$timestamp', original='$original' WHERE user_id='$userid' AND url='$url'" );
 			
 			print_r( mysql_error() );
 			

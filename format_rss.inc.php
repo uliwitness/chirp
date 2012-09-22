@@ -20,7 +20,7 @@
 		if( isset($userinfo['avatarurl']) && strlen($userinfo['avatarurl']) > 0 )
 		{
 			$str .= "\t<image>\n\t\t<url>".htmlentities($userinfo['avatarurl'])."</url>\n\t\t<link>".htmlentities($userinfo['homepage'])."</link>\n\t\t<title>".htmlentities($userinfo['fullname'])."</title>\n\t</image>\n";
-			$str .= "<microblog:avatar>".htmlentities($userinfo['avatarurl'])."<microblog:avatar>\n";
+			$str .= "<microblog:avatar>".htmlentities($userinfo['avatarurl'])."</microblog:avatar>\n";
 		}
 		
 		return $str;
@@ -36,6 +36,10 @@
 		if( isset($statusdict['replytourl']) && strlen($statusdict['replytourl']) > 0 )
 		{
 			$text = preg_replace( "/^@([-A-Za-z.\pL]+)/", "&lt;a href=\"".$statusdict['replytourl']."\" rel=\"prev\"&gt;@$1&lt;/a&gt;", $text );
+		}
+		else if( isset($statusdict['original']) && strlen($statusdict['original']) > 0 )
+		{
+			$text = preg_replace( "/^RT ([-A-Za-z.\pL]+)/", "&lt;a href=\"".$statusdict['original']."\" rel=\"original\"&gt;RT $1&lt;/a&gt;", $text );
 		}
 		return '	<item>
 		<description>'.$text.'</description>
