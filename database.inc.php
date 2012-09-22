@@ -3,8 +3,12 @@
 	{
 		global $gSettings;
 		
+		$settingspath = dirname($_SERVER['SCRIPT_FILENAME'])."/settings.ini";
+		if( !file_exists($settingspath) )
+			$settingspath = dirname($_SERVER['SCRIPT_FILENAME'])."/chirp/settings.ini";
+		
 		$gSettings = array();
-		$ini_lines = file("settings.ini");
+		$ini_lines = file($settingspath);
 		for( $x = 0; $x < sizeof($ini_lines); $x++ )
 		{
 			$parts = explode( "=", $ini_lines[$x], 2 );
