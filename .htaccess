@@ -2,6 +2,7 @@ RewriteEngine on
 RewriteRule   ^$   								index.php?action=timeline
 RewriteRule   ^settings\.ini$   				index.php?action=404
 RewriteRule   ^([A-Za-z0-9_]+)\.inc\.php$   	index.php?action=404
+RewriteRule   ^\.git/.*$   						index.php?action=404
 RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization},L]
 
 errordocument 404 /index.php?action=404
