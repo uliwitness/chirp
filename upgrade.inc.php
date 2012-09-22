@@ -14,6 +14,15 @@
 				$errmsg = "Could not add new 'origins' field to statuses.";
 			}
 		}
+		if( !isset($row['original_user_id']) )
+		{
+			$result = mysql_query( "ALTER TABLE statuses ADD original_user_id int" );
+			if( mysql_errno() != 0 )
+			{
+				$status = 13763;
+				$errmsg = "Could not add new 'original_user_id' field to statuses.";
+			}
+		}
 		
 		echo "<html>\n<head><title>Update Chirp</title>\n</head>\n<body>\n";
 		if( $status == 0 )

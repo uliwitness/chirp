@@ -149,16 +149,20 @@
 			{
 				$text = '@'.$matches[2].substr( $text, strlen($matches[0]) );
 				$original = mysql_real_escape_string(str_replace("\"", "", str_replace("\r", "", str_replace("\n", "", str_replace(">", "", str_replace("<", "", $matches[1]))))));
+				$originaluserid = userid_from_shortname($matches[2]);
 			}
 			else
+			{
 				$original = '';
+				$originaluserid = 0;
+			}
 			$text = mysql_real_escape_string($text);
 			
 			$url = mysql_real_escape_string($channel[$itemName]['link']);
 			$timestamp = strtotime($channel[$itemName]['pubDate']);
-			$result = mysql_query( "INSERT INTO statuses VALUES ( NULL, '$userid', '$inreplyto', '$text', '$url', '$timestamp', '$original' )" );
+			$result = mysql_query( "INSERT INTO statuses VALUES ( NULL, '$userid', '$inreplyto', '$text', '$url', '$timestamp', '$original', '$originaluserid' )" );
 			if( mysql_errno() != 0 )
-				$result = mysql_query( "UPDATE statuses SET text='$text', replytourl='$inreplyto', timestamp='$timestamp', original='$original' WHERE user_id='$userid' AND url='$url'" );
+				$result = mysql_query( "UPDATE statuses SET text='$text', replytourl='$inreplyto', timestamp='$timestamp', original='$original' original_user_id='$originaluserid' WHERE user_id='$userid' AND url='$url'" );
 			
 			print_r( mysql_error() );
 			
