@@ -10,7 +10,7 @@
 		$inreplyto = $_REQUEST['statusid'];
 		if( isset($inreplyto) && strlen($inreplyto) > 0 && is_numeric($inreplyto) )
 		{
-			$result = mysql_query( "SELECT * FROM statuses WHERE id='$statusid'" );
+			$result = mysql_query( "SELECT * FROM statuses WHERE id='$inreplyto'" );
 			print_r( mysql_error() );
 			$row = mysql_fetch_assoc($result);
 			
