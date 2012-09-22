@@ -1,10 +1,20 @@
 <?php
+	require_once( "database.inc.php" );
+
 	function finish_update( $status, $output, $chirpdir )
 	{
 		$errmsg = '';
 		
-		$result = mysql_query( "SELECT * FROM statuses WHERE * LIMIT 1" );
-		$row = mysql_fetch_assoc($result);
+		if( open_database() )
+		{
+			$result = mysql_query( "SELECT * FROM statuses WHERE * LIMIT 1" );
+			$row = mysql_fetch_assoc($result);
+		}
+		else
+		{
+			$errmsg = "Could not open database.";
+			$status = 13764;
+		}
 		if( !isset($row['original']) )
 		{
 			$result = mysql_query( "ALTER TABLE statuses ADD original varchar(140)" );
