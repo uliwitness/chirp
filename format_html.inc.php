@@ -4,6 +4,7 @@
 		global $gPageTitle;
 		
 		$str = "<html>\n<head>\n<title>".htmlentities($gPageTitle)."</title>\n";
+		$str .= "<base href=\"/chirp/\" />\n";
 		$str .= "<link rel=\"stylesheet\" href=\"styles.css\" type=\"text/css\" />\n";
 		$feedurl = "feed://".$_SERVER['HTTP_HOST']."/chirp/index.php?format=rss";
 		if( isset($_REQUEST['shortname']) )
