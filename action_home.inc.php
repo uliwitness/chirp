@@ -41,5 +41,5 @@
 			$gNewestTimestamp = $row['timestamp'];
 	}
 	
-	echo make_header() . $str . make_footer();
+	echo make_header() . make_send_field() . $str . make_footer();
 ?>

@@ -15,19 +15,24 @@
 		}
 		
 		$str .= "<link rel=\"alternate\" type=\"application/rss+xml\" title=\"".htmlentities($gPageTitle)."\" href=\"$feedurl\" />\n";
-		$str .= "</head>\n<body>";
-		$str .= "<div class=\"actions\">";
-		$str .= "<a href=\"index.php?action=timeline\">My Timeline</a><br />";
-		$str .= "<a href=\"index.php?action=home\">Global Timeline</a><br />";
-		$str .= "<a href=\"$feedurl\">RSS Feed</a><br />";
-		$str .= "<a href=\"index.php?action=follow\">Follow</a><br />";
-		$str .= "<a href=\"index.php?action=unfollow\">Unfollow</a><br />";
-		$str .= "<a href=\"index.php?action=profile\">My Profile</a><br />";
-		$str .= "<a href=\"index.php?action=importrss\">Refresh Timeline</a><br />";
-		$str .= "</div>";
-		$str .= "<div class=\"postfield\"><form action=\"index.php\" method=\"POST\">What are you doing?<br /><input type=\"text\" name=\"text\" size=\"60\" /><input type=\"hidden\" name=\"action\" value=\"newstatus\"></form></div>";
+		$str .= "</head>\n<body>\n";
+		$str .= "<div class=\"actions\">\n";
+		$str .= "<a href=\"index.php?action=timeline\">My Timeline</a><br />\n";
+		$str .= "<a href=\"index.php?action=home\">Global Timeline</a><br />\n";
+		$str .= "<a href=\"$feedurl\">RSS Feed</a><br />\n";
+		$str .= "<a href=\"index.php?action=follow\">Follow</a><br />\n";
+		$str .= "<a href=\"index.php?action=unfollow\">Unfollow</a><br />\n";
+		$str .= "<a href=\"index.php?action=profile\">My Profile</a><br />\n";
+		$str .= "<a href=\"index.php?action=importrss\">Refresh Timeline</a><br />\n";
+		$str .= "</div>\n";
 		
 		return $str;
+	}
+	
+	
+	function make_send_field()
+	{
+		return "<div class=\"postfield\">\n<form action=\"index.php\" method=\"POST\">\nWhat are you doing?<br />\n<input type=\"text\" name=\"text\" size=\"60\" />\n<input type=\"hidden\" name=\"action\" value=\"newstatus\">\n</form>\n</div>\n";
 	}
 	
 	function make_one_status_message( $statusdict )

@@ -25,6 +25,11 @@
 		
 		return $str;
 	}
+
+	function make_send_field()
+	{
+		return "";
+	}
 	
 	function make_one_status_message( $statusdict )
 	{
