@@ -145,9 +145,9 @@
 			}
 			else
 				$inreplyto = '';
-			if( preg_match( "/^<a href=\"(.+?)\" rel=\"original\">R[TP] ([-A-Za-z.]+)<\\/a>/", $text, $matches ) == 1)
+			if( preg_match( "/^<a href=\"(.+?)\" rel=\"original\">R[TP] @([-A-Za-z.]+)<\\/a>[ \\t\\r\\n]*/", $text, $matches ) == 1)
 			{
-				$text = '@'.$matches[2].substr( $text, strlen($matches[0]) );
+				$text = substr( $text, strlen($matches[0]) );
 				$original = mysql_real_escape_string(str_replace("\"", "", str_replace("\r", "", str_replace("\n", "", str_replace(">", "", str_replace("<", "", $matches[1]))))));
 				$originaluserid = userid_from_shortname($matches[2]);
 			}

@@ -35,16 +35,18 @@
 	{
 		$text = htmlentities($statusdict['text']);
 		$id = $statusdict['id'];
-				
+		
 		$userid = $statusdict['user_id'];
 		$userinfo = userinfo_from_userid( $userid );
 		if( isset($statusdict['replytourl']) && strlen($statusdict['replytourl']) > 0 )
 		{
 			$text = preg_replace( "/^@([-A-Za-z.\\pL]+)/", "&lt;a href=\"".$statusdict['replytourl']."\" rel=\"prev\"&gt;@$1&lt;/a&gt;", $text );
 		}
-		else if( isset($statusdict['original']) && strlen($statusdict['original']) > 0 )
+		if( isset($statusdict['original']) && strlen($statusdict['original']) > 0 )
 		{
-			$text = preg_replace( "/^[R][PT] ([-A-Za-z.\\pL]+)/", "&lt;a href=\"".$statusdict['original']."\" rel=\"original\"&gt;RP $1&lt;/a&gt;", $text );
+			$originaluserid = $statusdict['original_user_id'];
+			$originaluserinfo = userinfo_from_userid( $originaluserid );
+			$text = "&lt;a href=\"".$statusdict['original']."\" rel=\"original\"&gt;RP @".htmlentities($originaluserinfo['shortname'])."&lt;/a&gt; ".$text;
 		}
 		return '	<item>
 		<description>'.$text.'</description>

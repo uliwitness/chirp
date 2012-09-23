@@ -28,7 +28,7 @@
 			$originaluserid = mysql_real_escape_string($row['original_user_id']);
 			if( !isset($originaluserid) || $originaluserid == 0 )
 				$originaluserid = mysql_real_escape_string($row['user_id']);
-			$inreplyto = mysql_real_escape_string($row['url']);
+			$original = mysql_real_escape_string($row['url']);
 			if( strlen($original) == 0 )
 				$original = mysql_real_escape_string("http://".$_SERVER['HTTP_HOST']."/chirp/index.php?statusid=".$_REQUEST['statusid']);
 		}
