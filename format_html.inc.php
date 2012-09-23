@@ -36,8 +36,9 @@
 		$row = userinfo_from_userid($userid);
 		if( isset( $statusdict['original'] ) && strlen($statusdict['original']) > 0 )
 		{
-			$reposter = userinfo_from_userid( $statusdict['original_user_id'] );
-			$reposter = $reposter['fullname'];
+			$reposter = $row['fullname'];
+			$userid = $statusdict['original_user_id'];
+			$row = userinfo_from_userid( $statusdict['original_user_id'] );
 		}
 		else
 			$reposter = '';
