@@ -2,7 +2,9 @@ body { font-family: 'Helvetica Neue', Helvetica; font-size: 13pt; }
 
 .avatarplaceholder { float: left; width: 48px; height: 48px; margin-right: 8pt; background-color: #888888; }
 
-.tweet { clear: left; padding: 8pt; background-color: #eeeeee; min-height: 48px; }
+.status { clear: left; padding: 8pt; background-color: #eeeeee; min-height: 48px; }
+
+.status .statuscontrols {  }
 
 .actions { clear: left; margin: 8pt; float: right; background-color: white; padding: 8pt; margin: 0; }
 
