@@ -162,7 +162,7 @@
 			$timestamp = strtotime($channel[$itemName]['pubDate']);
 			$result = mysql_query( "INSERT INTO statuses VALUES ( NULL, '$userid', '$inreplyto', '$text', '$url', '$timestamp', '$original', '$originaluserid' )" );
 			if( mysql_errno() != 0 )
-				$result = mysql_query( "UPDATE statuses SET text='$text', replytourl='$inreplyto', timestamp='$timestamp', original='$original' original_user_id='$originaluserid' WHERE user_id='$userid' AND url='$url'" );
+				$result = mysql_query( "UPDATE statuses SET text='$text', replytourl='$inreplyto', timestamp='$timestamp', original='$original', original_user_id='$originaluserid' WHERE user_id='$userid' AND url='$url'" );
 			
 			print_r( mysql_error() );
 			
