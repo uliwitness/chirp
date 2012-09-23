@@ -39,7 +39,7 @@
 		}
 		else if( isset($statusdict['original']) && strlen($statusdict['original']) > 0 )
 		{
-			$text = preg_replace( "/^R[PT] ([-A-Za-z.\\pL]+)/", "&lt;a href=\"".$statusdict['original']."\" rel=\"original\"&gt;RP $1&lt;/a&gt;", $text );
+			$text = preg_replace( "/^[R][PT] ([-A-Za-z.\\pL]+)/", "&lt;a href=\"".$statusdict['original']."\" rel=\"original\"&gt;RP $1&lt;/a&gt;", $text );
 		}
 		return '	<item>
 		<description>'.$text.'</description>
