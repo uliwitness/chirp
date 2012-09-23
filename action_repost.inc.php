@@ -13,8 +13,8 @@
 	
 	$userinfo = userinfo_from_userid( $row['user_id'] );
 	
-	$str = "<form action=\"index.php\" method=\"POST\">Repost <i>".htmlentities($userinfo['fullname'])."</i>:<br />".htmlentities($row['text'])."<br/>\n";
-	$str .= "<input type=\"hidden\" name=\"text\" size=\"60\" value=\"RP ".htmlentities($userinfo['shortname']).htmlentities($row['text'])." \" />\n<input type=\"hidden\" name=\"action\" value=\"newstatus\">\n<input type=\"hidden\" name=\"originalstatusid\" value=\"".$row['id']."\"><br />\n<input type=\"submit\" name=\"submit\" />\n</form>";
+	$str = "<form action=\"index.php\" method=\"POST\">Repost <i>".htmlentities($userinfo['fullname'])."</i>:<br />"."RP ".htmlentities($userinfo['shortname'])." ".htmlentities($row['text'])."<br/>\n";
+	$str .= "<input type=\"hidden\" name=\"text\" size=\"60\" value=\"RP ".htmlentities($userinfo['shortname'])." ".htmlentities($row['text'])." \" />\n<input type=\"hidden\" name=\"action\" value=\"newstatus\">\n<input type=\"hidden\" name=\"originalstatusid\" value=\"".$row['id']."\"><br />\n<input type=\"submit\" name=\"submit\" />\n</form>";
 	
 	echo make_header() . $str . make_footer();
 ?>
