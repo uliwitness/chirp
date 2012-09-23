@@ -37,7 +37,7 @@
 		{
 			$text = preg_replace( "/^@([-A-Za-z.\\pL]+)/", "&lt;a href=\"".$statusdict['replytourl']."\" rel=\"prev\"&gt;@$1&lt;/a&gt;", $text );
 		}
-		else if( isset($statusdict['original']) && strlen($statusdict['original']) > 0 )
+		if( isset($statusdict['original']) && strlen($statusdict['original']) > 0 )
 		{
 			$text = preg_replace( "/^[R][PT] ([-A-Za-z.\\pL]+)/", "&lt;a href=\"".$statusdict['original']."\" rel=\"original\"&gt;RP $1&lt;/a&gt;", $text );
 		}
