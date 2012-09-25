@@ -37,6 +37,8 @@
 	
 	function make_one_status_message( $statusdict )
 	{
+		global $gCurrentUserID;
+		
 		$userid = $statusdict['user_id'];
 		$row = userinfo_from_userid($userid);
 		if( isset( $statusdict['original'] ) && strlen($statusdict['original']) > 0 )
@@ -56,10 +58,10 @@
 			$str .= " <a href=\"".htmlentities($statusdict['replytourl'])."\">&#128172;</a>";
 		if( isset($statusdict['original']) && strlen($statusdict['original']) > 1 )
 			$str .= " <a href=\"".htmlentities($statusdict['original'])."\">&#128172;</a>";
-		if( strlen($reposter) > 0 )
-			$str .= " <i>via ".htmlentities($reposter)."</i>";
 		if( isset($gCurrentUserID) && strlen($gCurrentUserID) > 0 && $statusdict['user_id'] == $gCurrentUserID )
 			$str .= " <a href=\"index.php?action=deletestatus&statusid=".$statusdict['id']."\">&#215;</a>";
+		if( strlen($reposter) > 0 )
+			$str .= " <i>via ".htmlentities($reposter)."</i>";
 		$str .= "</div></div><br/>";
 		return $str;
 	}
