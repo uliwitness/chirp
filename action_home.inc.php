@@ -6,7 +6,7 @@
 	if( isset($_REQUEST['statusid']) && strlen($_REQUEST['statusid']) > 0 && is_numeric($_REQUEST['statusid']) )
 	{
 		$gPageTitle = "Status ID ".$_REQUEST['statusid'];
-		$querystr = "SELECT * FROM statuses WHERE id='".mysql_real_escape_string($_REQUEST['statusid'])."'";
+		$querystr = "SELECT * FROM statuses WHERE id='".mysql_real_escape_string($_REQUEST['statusid'])."' AND text <> ''";
 	}
 	else if( strcmp($_REQUEST['action'],"timeline") == 0 )
 	{
@@ -18,14 +18,14 @@
 		print_r( mysql_error() );
 		while( ($row = mysql_fetch_assoc($result)) !== false )
 			$querystr .= ", '".$row['followee']."'";
-		$querystr .= " )";
+		$querystr .= " ) AND text <> ''";
 	}
 	else if( isset($_REQUEST['shortname']) )
 	{
 		$userid = userid_from_shortname( $_REQUEST['shortname'] );
 		$userinfo = userinfo_from_userid( $userid );
 		$gPageTitle = $userinfo['fullname'];
-		$querystr = "SELECT * FROM statuses WHERE user_id='$userid'";
+		$querystr = "SELECT * FROM statuses WHERE user_id='$userid' AND text <> ''";
 	}
 	$result = mysql_query( $querystr." ORDER BY timestamp DESC" );
 	print_r( mysql_error() );

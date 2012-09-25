@@ -58,7 +58,10 @@
 			$str .= " <a href=\"".htmlentities($statusdict['original'])."\">&#128172;</a>";
 		if( strlen($reposter) > 0 )
 			$str .= " <i>via ".htmlentities($reposter)."</i>";
+		if( isset($gCurrentUserID) && strlen($gCurrentUserID) > 0 && $statusdict['user_id'] == $gCurrentUserID )
+			$str .= " <a href=\"index.php?action=deletestatus&statusid=".$statusdict['id']."\">&#215;</a>";
 		$str .= "</div><br/>";
+		
 		return $str;
 	}
 

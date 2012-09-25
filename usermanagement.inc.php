@@ -53,7 +53,7 @@
 	
 	function http_authenticated_userid( $mustBeAdmin = false )
 	{
-	    global $chirp_config;
+	    global $chirp_config, $gCurrentUserID;
 	    
 	    if( !isset($_SERVER['PHP_AUTH_USER']) ) // Likely that we need PHP CGI workaround for HTTP AUTH?
 	    {
@@ -82,6 +82,8 @@
 		    	return false;
 		    }
 	    }
+	    
+	    $gCurrentUserID = $userid;
 	    
 	    return $userid;
 	}
