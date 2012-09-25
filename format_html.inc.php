@@ -50,8 +50,8 @@
 		$shortname = $row['shortname'];
 		$fullname = $row['fullname'];
 		$avatarurl = $row['avatarurl'];
-		$str = "<div class=\"tweet\">";
-		$str .= "<a href=\"index.php?shortname=".urlencode($shortname)."\" class=\"statussender\">".((strlen($avatarurl) > 0) ? "<img src=\"".$avatarurl."\" width=\"48\" height=\"48\" align=\"left\" style=\"padding-right: 8pt;\" />" : "<div class=\"avatarplaceholder\"></div>").htmlentities($fullname)."</a> ".htmlentities($statusdict['text'])." <a href=\"index.php?action=reply&statusid=".$statusdict['id']."\">&#8617;</a> <a href=\"index.php?action=repost&statusid=".$statusdict['id']."\">&#9851;</a>";
+		$str = "<div class=\"status\">";
+		$str .= "<a href=\"index.php?shortname=".urlencode($shortname)."\" class=\"statussender\">".((strlen($avatarurl) > 0) ? "<img src=\"".$avatarurl."\" width=\"48\" height=\"48\" align=\"left\" style=\"padding-right: 8pt;\" />" : "<div class=\"avatarplaceholder\"></div>").htmlentities($fullname)."</a> ".htmlentities($statusdict['text'])."<div class=\"statuscontrols\"><a href=\"index.php?action=reply&statusid=".$statusdict['id']."\">&#8617;</a> <a href=\"index.php?action=repost&statusid=".$statusdict['id']."\">&#9851;</a>";
 		if( isset($statusdict['replytourl']) && strlen($statusdict['replytourl']) > 1 )
 			$str .= " <a href=\"".htmlentities($statusdict['replytourl'])."\">&#128172;</a>";
 		if( isset($statusdict['original']) && strlen($statusdict['original']) > 1 )
@@ -60,8 +60,7 @@
 			$str .= " <i>via ".htmlentities($reposter)."</i>";
 		if( isset($gCurrentUserID) && strlen($gCurrentUserID) > 0 && $statusdict['user_id'] == $gCurrentUserID )
 			$str .= " <a href=\"index.php?action=deletestatus&statusid=".$statusdict['id']."\">&#215;</a>";
-		$str .= "</div><br/>";
-		
+		$str .= "</div></div><br/>";
 		return $str;
 	}
 
