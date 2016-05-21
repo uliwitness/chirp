@@ -1,7 +1,7 @@
 Chirp
 =====
 
-An RSS-based, distributed Twitter clone. (server-side, not client-side)
+A reference-implementation of a web interface for an RSS-based, distributed Twitter clone.
 
 
 Installation
